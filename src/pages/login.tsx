@@ -1,4 +1,4 @@
-import CenteredLayout from '../core/components/layout/CenteredLayout'
+import CenteredLayout from '../features/layout/CenteredLayout'
 import styled from 'styled-components'
 import { useCallback } from 'react'
 import { useRouter } from 'next/router'

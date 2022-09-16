@@ -6,11 +6,8 @@ import { getCurrentUserProfile } from '../features/user/api'
 import { setCurrentUser } from '../features/user/slice'
 import { parseCookies } from 'nookies'
 import { setAuthData } from '../features/auth/slice'
-import Sidebar from '../features/sidebar/components'
-import InnerLayout from '../core/components/layout/InnerLayout'
-import ContentLayout from '../core/components/layout/ContentLayout'
-import Header from '../features/header/components'
-import Player from '../features/player/components'
+import { ReactElement, ReactNode } from 'react'
+import { NextPage } from 'next'
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -38,23 +35,22 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-function App({ Component, pageProps }: AppProps) {
-  const router = useRouter()
-  return (
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+
+function App({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page)
+
+  return getLayout(
     <>
       <GlobalStyle />
-      {router.pathname === '/login' ? (
-        <Component {...pageProps} />
-      ) : (
-        <InnerLayout>
-          <Sidebar />
-          <ContentLayout>
-            <Header />
-            <Component {...pageProps} />
-          </ContentLayout>
-          <Player />
-        </InnerLayout>
-      )}
+      <Component {...pageProps} />
     </>
   )
 }

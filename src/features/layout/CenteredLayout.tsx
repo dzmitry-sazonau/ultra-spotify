@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
-import { IReactChildren } from '../../interface'
+import { IReactChildren } from '../../core/interface'
 
 const StyledCenteredLayout = styled.div`
   height: 100%;

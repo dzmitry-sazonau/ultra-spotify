@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { IReactChildren } from '../../interface'
+import { IReactChildren } from '../../core/interface'
 import styled from 'styled-components'
 
 const StyledContentLayout = styled.div`
