@@ -1,14 +1,15 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC } from 'react'
+import { IReactChildren } from '../../interface'
+import styled from 'styled-components'
 
-interface IContentLayoutProps {
-  children: ReactNode
-}
+const StyledContentLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`
 
-const ContentLayout: FC<IContentLayoutProps> = ({ children }) => (
-  <div>
-    ContentLayout
-    {children}
-  </div>
+const ContentLayout: FC<IReactChildren> = ({ children }) => (
+  <StyledContentLayout>{children}</StyledContentLayout>
 )
 
 export default ContentLayout

@@ -1,14 +1,17 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC } from 'react'
+import styled from 'styled-components'
+import { IReactChildren } from '../../interface'
 
-interface IInnerLayoutProps {
-  children: ReactNode
-}
+const StyledInnerLayout = styled.div`
+  height: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+`
 
-const InnerLayout: FC<IInnerLayoutProps> = ({ children }) => (
-  <div>
-    InnerLayout
-    {children}
-  </div>
+const InnerLayout: FC<IReactChildren> = ({ children }) => (
+  <StyledInnerLayout>{children}</StyledInnerLayout>
 )
 
 export default InnerLayout

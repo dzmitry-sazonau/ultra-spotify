@@ -1,5 +1,5 @@
 import NextApp, { AppProps } from 'next/app'
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router'
 import { createGlobalStyle } from 'styled-components'
 import { wrapper } from '../core/store'
 import { getCurrentUserProfile } from '../features/user/api'
@@ -10,12 +10,15 @@ import Sidebar from '../features/sidebar/components'
 import InnerLayout from '../core/components/layout/InnerLayout'
 import ContentLayout from '../core/components/layout/ContentLayout'
 import Header from '../features/header/components'
+import Player from '../features/player/components'
 
 const GlobalStyle = createGlobalStyle`
   html,
   body {
+    height: 100%;
     padding: 0;
     margin: 0;
+    color: #fff;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
@@ -40,7 +43,7 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <GlobalStyle />
-      {router.pathname === "/login" ? (
+      {router.pathname === '/login' ? (
         <Component {...pageProps} />
       ) : (
         <InnerLayout>
@@ -49,6 +52,7 @@ function App({ Component, pageProps }: AppProps) {
             <Header />
             <Component {...pageProps} />
           </ContentLayout>
+          <Player />
         </InnerLayout>
       )}
     </>
