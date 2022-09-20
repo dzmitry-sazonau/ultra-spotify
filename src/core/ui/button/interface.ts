@@ -1,10 +1,14 @@
-import { IReactChildren } from '../../interface'
+import { IClassName, IReactChildren } from '../../interface'
 
-export type Size = 'xs' | 's' | 'm' | 'l'| 'xl';
+export type ButtonSize = 'xs' | 's' | 'm' | 'l'| 'xl';
 
-export interface IDefaultButtonProps extends IReactChildren {
-  size: Size
-  disabled: boolean
+export type ButtonColor = 'primary' | 'second'
+
+export interface IDefaultButtonProps extends IReactChildren, IClassName {
+  size: ButtonSize
+  color?: ButtonColor
+  disabled?: boolean
+  onClick: () => void
 }
 
 export interface ICircularButton extends IDefaultButtonProps {}

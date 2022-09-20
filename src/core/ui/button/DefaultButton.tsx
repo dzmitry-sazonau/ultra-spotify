@@ -1,17 +1,11 @@
 import React, { FC } from 'react'
-import styled, {css} from 'styled-components'
-import { Size, IDefaultButtonProps } from './interface'
-
-const sizeMap: { [key in Size]: number } = {
-  xs: 16,
-  s: 32,
-  m: 40,
-  l: 48,
-  xl: 56,
-}
+import styled from 'styled-components'
+import { ButtonColor, IDefaultButtonProps } from './interface'
+import { buttonSizeMap } from './constants'
 
 const StyledButtonDefault = styled.button<{
   size: number
+  color: ButtonColor
 }>`
   height: ${(props) => props.size}px;
   display: flex;
@@ -19,6 +13,8 @@ const StyledButtonDefault = styled.button<{
   align-items: center;
   border-radius: 500px;
   border: 0;
+  background-color: ${(props) => props.color === 'primary' ? '#1CDF63' : '#484848'};
+  cursor: pointer;
 
   :disabled {
     opacity: .6;
@@ -30,12 +26,18 @@ const DefaultButton: FC<IDefaultButtonProps> = ({
   children,
   size,
   disabled,
+  className,
+  color = 'primary',
+  onClick
 }) => {
   return (
     <StyledButtonDefault
       type="button"
-      size={sizeMap[size]}
+      size={buttonSizeMap[size]}
       disabled={disabled}
+      className={className}
+      color={color}
+      onClick={onClick}
     >
       {children}
     </StyledButtonDefault>

@@ -86,8 +86,8 @@ const NavLinks = () => {
   return (
     <StyledNavLinks>
       {listLinks.map(({ href, title, activeIcon, inactiveIcon }) => (
-        <Link href={href}>
-          <StyledWrapperLink key={href}>
+        <Link key={href} href={href}>
+          <StyledWrapperLink>
             <StyledWrapperIcon>
               {href === asPath ? activeIcon : inactiveIcon}
             </StyledWrapperIcon>

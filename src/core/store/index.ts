@@ -3,13 +3,15 @@ import { createWrapper, Context } from 'next-redux-wrapper'
 import { api } from './api'
 import user from '../../features/user/slice'
 import auth from '../../features/auth/slice'
+import history from '../../features/history/slice'
 
 export const makeStore = (ctx: Context) =>
   configureStore({
     reducer: {
       [api.reducerPath]: api.reducer,
       user,
-      auth
+      auth,
+      history
     },
     middleware: (gDM) =>
       gDM({
