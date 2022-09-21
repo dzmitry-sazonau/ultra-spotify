@@ -4,14 +4,14 @@ import {
   selectBackRoute,
   selectForwardRoute,
   selectIsDisabledBackButton,
-  selectIsDisabledForwardButton
+  selectIsDisabledForwardButton,
 } from './selectors'
-import { useCallback } from 'react'
-import { decrement, increment } from './slice'
+import { useCallback, useEffect } from 'react'
+import { decrement, increment, initialize, updateHistory } from './slice'
 
 export function useHistory() {
   const router = useRouter()
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   const isDisabledBack = useAppSelector(selectIsDisabledBackButton)
   const isDisabledForward = useAppSelector(selectIsDisabledForwardButton)
@@ -20,18 +20,46 @@ export function useHistory() {
 
   const handleGoBack = useCallback(() => {
     dispatch(decrement())
-    router.push(backRoute)
+    router.push(backRoute, undefined, { shallow: true })
   }, [dispatch, router, backRoute])
 
   const handleGoForward = useCallback(() => {
     dispatch(increment())
-    router.push(forwardRoute)
+    router.push(forwardRoute, undefined, { shallow: true })
   }, [dispatch, router, forwardRoute])
 
   return {
     back: handleGoBack,
     forward: handleGoForward,
     isDisabledBack,
-    isDisabledForward
+    isDisabledForward,
   }
+}
+
+export function useInitializeHistory() {
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(initialize(router.asPath))
+  }, [])
+}
+
+export function useAttachedEventsForRouter() {
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    const routeChangeComplete = (url: string, { shallow }: { shallow: boolean }) => {
+      if (!shallow) {
+        dispatch(updateHistory(url))
+      }
+    }
+
+    router.events.on('routeChangeComplete', routeChangeComplete)
+
+    return () => {
+      router.events.off('routeChangeComplete', routeChangeComplete)
+    }
+  }, [])
 }

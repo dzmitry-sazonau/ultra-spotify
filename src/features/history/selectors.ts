@@ -19,9 +19,9 @@ export const selectRouterHistoryLength = createSelector(
 )
 
 export const selectIsDisabledBackButton = createSelector(
-  selectRouterHistory,
+  selectCurrentRoute,
   selectRouterHistoryLength,
-  (routerHistory, length) => !routerHistory.at(length - 2)
+  (currentRoute, length) => length === 0 || currentRoute === 0
 )
 
 export const selectIsDisabledForwardButton = createSelector(
@@ -40,9 +40,4 @@ export const selectBackRoute = createSelector(
   selectCurrentRoute,
   selectRouterHistory,
   (currentRoute, routerHistory) => routerHistory.at(currentRoute - 1) || '/'
-)
-
-export const selectIsNeedInitialize = createSelector(
-  selectRouterHistoryLength,
-  (length) => !!length
 )

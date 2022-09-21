@@ -46,22 +46,8 @@ type AppPropsWithLayout = AppProps & {
 }
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
-  const router = useRouter();
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    const handleStart = (url: string) => {
-      dispatch(updateHistory(url))
-    };
-
-    router.events.on("routeChangeComplete", handleStart);
-
-    return () => {
-      router.events.off("routeChangeComplete", handleStart);
-    };
-  }, []);
-
   const getLayout = Component.getLayout ?? ((page) => page)
+
   return getLayout(
     <>
       <GlobalStyle />
@@ -71,14 +57,10 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
 }
 
 App.getInitialProps = wrapper.getInitialAppProps((store) => async (context) => {
-  if (!store.getState().history.routerHistory.length) {
-    store.dispatch(initialize(context.ctx.asPath || '/'))
-  }
 
   try {
     const { token } = parseCookies(context.ctx)
     const authData = JSON.parse(token)
-    console.log('qweqwew')
 
     store.dispatch(setAuthData(authData))
 

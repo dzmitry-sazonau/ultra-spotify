@@ -4,8 +4,7 @@ import { HYDRATE } from 'next-redux-wrapper'
 
 const initialState: IHistoryState = {
   routerHistory: [],
-  currentRoute: 0,
-  isChangeFromHeader: false,
+  currentRoute: 0
 }
 
 const history = createSlice({
@@ -16,20 +15,15 @@ const history = createSlice({
       state.routerHistory = [action.payload]
     },
     updateHistory(state, action: PayloadAction<string>) {
-      if (!state.isChangeFromHeader) {
-        state.currentRoute = state.routerHistory.length
-        state.routerHistory = [...state.routerHistory, action.payload]
-      } else {
-        state.isChangeFromHeader = false
-      }
+      state.currentRoute = state.routerHistory.length
+      state.routerHistory = [...state.routerHistory, action.payload]
+
     },
     increment(state) {
       state.currentRoute = ++state.currentRoute
-      state.isChangeFromHeader = true
     },
     decrement(state) {
       state.currentRoute = --state.currentRoute
-      state.isChangeFromHeader = true
     },
   },
   extraReducers: {
