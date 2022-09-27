@@ -1,16 +1,26 @@
 import { api } from '../../core/store/api'
-import { IRequestCollectionParams, IResponseAlbumsInfo, IResponsePlaylistsInfo } from './interface'
+import {
+  IRequestCollectionParams,
+  IResponseAlbumsInfo,
+  IResponsePlaylistsInfo,
+} from './interface'
 
 const collectionApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getCurrentUserPlaylists: builder.query<IResponsePlaylistsInfo, IRequestCollectionParams>({
+    getCurrentUserPlaylists: builder.query<
+      IResponsePlaylistsInfo,
+      IRequestCollectionParams
+    >({
       query: (arg) => ({
         url: '/me/playlists',
         method: 'GET',
         params: { ...arg },
       }),
     }),
-    getCurrentUserAlbums: builder.query<IResponseAlbumsInfo, IRequestCollectionParams>({
+    getCurrentUserAlbums: builder.query<
+      IResponseAlbumsInfo,
+      IRequestCollectionParams
+    >({
       query: (arg) => ({
         url: '/me/albums',
         method: 'GET',
@@ -20,6 +30,13 @@ const collectionApi = api.injectEndpoints({
   }),
 })
 
-export const { useGetCurrentUserPlaylistsQuery, useGetCurrentUserAlbumsQuery } = collectionApi
+export const {
+  useGetCurrentUserPlaylistsQuery,
+  useGetCurrentUserAlbumsQuery,
+  util: { getRunningOperationPromises },
+} = collectionApi
+
+export const { getCurrentUserPlaylists, getCurrentUserAlbums } =
+  collectionApi.endpoints
 
 export default collectionApi
