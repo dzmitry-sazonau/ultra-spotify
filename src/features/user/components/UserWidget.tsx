@@ -1,5 +1,4 @@
 import React from 'react'
-import { useGetCurrentUserProfileQuery } from '../api'
 import styled from 'styled-components'
 import { useAppSelector } from '../../../core/store/hook'
 import { selectCurrentUser } from '../selector'

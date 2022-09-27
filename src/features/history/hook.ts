@@ -20,6 +20,7 @@ export function useHistory() {
 
   const handleGoBack = useCallback(() => {
     dispatch(decrement())
+ 
     router.push(backRoute, undefined, { shallow: true })
   }, [dispatch, router, backRoute])
 

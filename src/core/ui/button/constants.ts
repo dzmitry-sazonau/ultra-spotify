@@ -11,9 +11,9 @@ export const buttonSizeMap: { [key in ButtonSize]: number } = {
 export const iconSizeMap: { [key in ButtonSize]: number } = {
   xs: 16,
   s: 22,
-  m: 40,
-  l: 48,
-  xl: 56,
+  m: 23,
+  l: 24,
+  xl: 30,
 }
 
 

@@ -2,7 +2,6 @@ import React, { FC, ReactElement } from 'react'
 import styled from 'styled-components'
 import { IReactChildren } from '../../core/interface'
 import Sidebar from '../sidebar/components'
-import ContentLayout from './ContentLayout'
 import Header from '../header/Header'
 import Player from '../player/components'
 
@@ -14,13 +13,26 @@ const StyledInnerLayout = styled.div`
   grid-template-rows: 1fr auto;
 `
 
+const StyledMainLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`
+
+const StyledContentLayout = styled.div`
+  height: 100%;
+  padding: 24px 32px 0 32px;
+  background-color: #121212;
+  overflow: hidden;
+`
+
 const InnerLayout: FC<IReactChildren> = ({ children }) => (
   <StyledInnerLayout>
     <Sidebar />
-    <ContentLayout>
+    <StyledMainLayout>
       <Header />
-      {children}
-    </ContentLayout>
+      <StyledContentLayout>{children}</StyledContentLayout>
+    </StyledMainLayout>
     <Player />
   </StyledInnerLayout>
 )
