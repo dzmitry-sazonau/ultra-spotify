@@ -57,7 +57,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
 }
 
 App.getInitialProps = wrapper.getInitialAppProps((store) => async (context) => {
-
   try {
     const { token } = parseCookies(context.ctx)
     const authData = JSON.parse(token)

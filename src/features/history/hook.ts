@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router'
 import { useAppDispatch, useAppSelector } from '../../core/store/hook'
 import {
-  selectBackRoute,
+  selectBackRoute, selectCurrentRoute,
   selectForwardRoute,
   selectIsDisabledBackButton,
-  selectIsDisabledForwardButton,
+  selectIsDisabledForwardButton, selectRouterHistoryLength
 } from './selectors'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { decrement, increment, initialize, updateHistory } from './slice'
 
 export function useHistory() {
@@ -21,12 +21,12 @@ export function useHistory() {
   const handleGoBack = useCallback(() => {
     dispatch(decrement())
  
-    router.push(backRoute, undefined, { shallow: true })
+    router.push(backRoute)
   }, [dispatch, router, backRoute])
 
   const handleGoForward = useCallback(() => {
     dispatch(increment())
-    router.push(forwardRoute, undefined, { shallow: true })
+    router.push(forwardRoute)
   }, [dispatch, router, forwardRoute])
 
   return {
@@ -48,19 +48,30 @@ export function useInitializeHistory() {
 
 export function useAttachedEventsForRouter() {
   const router = useRouter()
+  const [isUpdateHistory, setIsUpdateHistory] = useState(true)
+  const currentRoute = useAppSelector(selectCurrentRoute)
+  const routerHistoryLength =  useAppSelector(selectRouterHistoryLength)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    const routeChangeComplete = (url: string, { shallow }: { shallow: boolean }) => {
-      if (!shallow) {
-        dispatch(updateHistory(url))
-      }
-    }
+    setIsUpdateHistory(false)
+  }, [currentRoute])
 
+  useEffect(() => {
+    setIsUpdateHistory(true)
+  }, [routerHistoryLength])
+
+  const routeChangeComplete = (url: string) => {
+    if (isUpdateHistory) {
+      dispatch(updateHistory(url))
+    }
+  }
+
+  useEffect(() => {
     router.events.on('routeChangeComplete', routeChangeComplete)
 
     return () => {
       router.events.off('routeChangeComplete', routeChangeComplete)
     }
-  }, [])
+  }, [routeChangeComplete])
 }
