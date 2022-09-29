@@ -1,20 +1,20 @@
 import React, { useCallback } from 'react'
 import { useGetCurrentUserPlaylistsQuery } from '../../api'
-import HeaderCollection from '../HeaderCollection'
-import PlaylistsRowCollection from './PlaylistsRowCollection'
+import HeaderRowCollection from '../header/HeaderRowCollection'
+import PlaylistsCollection from './PlaylistsCollection'
 import { useRouter } from 'next/router'
 
-const CurrentUserPlaylistsCollection = () => {
+const CurrentUserPlaylistsRowCollection = () => {
   const router = useRouter();
   const { data } = useGetCurrentUserPlaylistsQuery({ limit: 8, offset: 0 })
   const pushToPlaylists = useCallback(() => router.push('/collection/playlists'), [])
 
   return (
     <div>
-      <HeaderCollection title={'Your playlists'} action={pushToPlaylists} />
-      <PlaylistsRowCollection playlists={data?.items!} />
+      <HeaderRowCollection title={'Your playlists'} action={pushToPlaylists} />
+      <PlaylistsCollection playlists={data?.items!} />
     </div>
   )
 }
 
-export default CurrentUserPlaylistsCollection
+export default CurrentUserPlaylistsRowCollection

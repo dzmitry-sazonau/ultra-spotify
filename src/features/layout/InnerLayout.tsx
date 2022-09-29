@@ -17,13 +17,13 @@ const StyledMainLayout = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: auto;
 `
 
 const StyledContentLayout = styled.div`
   height: 100%;
-  padding: 24px 32px 0 32px;
   background-color: #121212;
-  overflow: hidden;
+  overflow: auto;
 `
 
 const InnerLayout: FC<IReactChildren> = ({ children }) => (

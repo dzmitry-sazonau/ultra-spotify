@@ -12,3 +12,5 @@ export interface IDefaultButtonProps extends IReactChildren, IClassName {
 }
 
 export interface ICircularButton extends IDefaultButtonProps {}
+
+export interface IOutlinedButton extends IDefaultButtonProps {}

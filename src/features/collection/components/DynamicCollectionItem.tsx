@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import CardItem from '../../../core/ui/card/CardItem'
 import Link from 'next/link'
-import { IDynamicRowCollectionItemProps } from '../interface'
+import { IDynamicCollectionItemProps } from '../interface'
 
-const DynamicRowCollectionItem: FC<IDynamicRowCollectionItemProps> = ({
+const DynamicCollectionItem: FC<IDynamicCollectionItemProps> = ({
   link,
   image,
   subtitle,
@@ -24,4 +24,4 @@ const DynamicRowCollectionItem: FC<IDynamicRowCollectionItemProps> = ({
   )
 }
 
-export default DynamicRowCollectionItem
+export default DynamicCollectionItem

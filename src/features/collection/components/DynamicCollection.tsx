@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import { useDynamicRow } from '../hook'
-import { IDynamicRowCollectionProps } from '../interface'
+import { useDynamicWidth } from '../hook'
+import { IDynamicCollectionProps } from '../interface'
 
 const StyledPlaylistWrapper = styled.div<{ column: number; gap: number }>`
   display: grid;
@@ -10,14 +10,15 @@ const StyledPlaylistWrapper = styled.div<{ column: number; gap: number }>`
   gap: ${(props) => props.gap}px;
 `
 
-const DynamicRowCollection = <T extends unknown>({
+const DynamicCollection = <T extends unknown>({
   children,
   data,
-}: IDynamicRowCollectionProps<T>) => {
-  const { columCount, gap, ref } = useDynamicRow()
+  type
+}: IDynamicCollectionProps<T>) => {
+  const { columCount, gap, ref } = useDynamicWidth()
 
   const memoizedData = useMemo(
-    () => data?.slice(0, columCount),
+    () => data?.slice(0, type === 'table' ? data.length : columCount),
     [data, columCount]
   )
 
@@ -32,4 +33,4 @@ const DynamicRowCollection = <T extends unknown>({
   )
 }
 
-export default DynamicRowCollection
+export default DynamicCollection

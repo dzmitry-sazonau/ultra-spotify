@@ -18,6 +18,7 @@ export const api = createApi({
       return headers
     }
   }),
+  tagTypes: ['Following'],
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath]

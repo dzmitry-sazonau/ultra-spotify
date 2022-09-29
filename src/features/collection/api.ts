@@ -4,6 +4,7 @@ import {
   IResponseAlbumsInfo,
   IResponsePlaylistsInfo,
 } from './interface'
+import { IUser } from '../user/interface'
 
 const collectionApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -27,12 +28,20 @@ const collectionApi = api.injectEndpoints({
         params: { ...arg },
       }),
     }),
+    getPlaylistByUserId: builder.query<IResponsePlaylistsInfo, IRequestCollectionParams & {id: IUser['id']}>({
+      query: ({ id, offset, limit }) => ({
+        url: `/users/${id}/playlists`,
+        method: 'GET',
+        params: { offset, limit },
+      })
+    })
   }),
 })
 
 export const {
   useGetCurrentUserPlaylistsQuery,
   useGetCurrentUserAlbumsQuery,
+  useGetPlaylistByUserIdQuery,
   util: { getRunningOperationPromises },
 } = collectionApi
 

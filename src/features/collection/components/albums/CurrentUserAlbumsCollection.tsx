@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useGetCurrentUserAlbumsQuery } from '../../api'
-import HeaderCollection from '../HeaderCollection'
+import HeaderRowCollection from '../header/HeaderRowCollection'
 import { useRouter } from 'next/router'
 import AlbumsRowCollection from './AlbumsRowCollection'
 
@@ -11,7 +11,7 @@ const CurrentUserAlbumCollection = () => {
 
   return (
     <div>
-      <HeaderCollection title={'Your albums'} action={pushToAlbums} />
+      <HeaderRowCollection title={'Your albums'} action={pushToAlbums} />
       <AlbumsRowCollection albums={data?.items!} />
     </div>
   )

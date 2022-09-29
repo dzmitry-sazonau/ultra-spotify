@@ -33,6 +33,8 @@ export interface IUser {
   uri: string;
 }
 
+export type TUserType = 'artist' | 'user'
+
 export interface IUserState {
   currentUser: IUser
 }

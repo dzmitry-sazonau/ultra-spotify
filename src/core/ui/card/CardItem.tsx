@@ -87,6 +87,10 @@ const StyledSubtitle = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  margin-top: 4px;
 `
 
 const CardItem: FC<TCardItemProps> = ({

@@ -1,13 +1,22 @@
 import { ReactNode } from 'react'
+import { TUserType } from '../user/interface'
 
-export interface IDynamicRowCollectionProps<T> {
+export interface IDynamicCollectionProps<T> {
   children: (data: T[]) => ReactNode
-  data: T[]
+  data: T[],
+  type: TDynamicCollectionType
 }
 
-export interface IHeaderCollectionProps {
-  title: string
+export type TDynamicCollectionType = 'row' | 'table'
+
+export interface IHeaderRowCollectionProps extends IHeaderCollection {
   action: () => void
+}
+
+export interface IHeaderCollection {
+  children?: ReactNode
+  title: string
+  action?: () => void
 }
 
 export interface IImage {
@@ -126,8 +135,9 @@ export interface IResponsePlaylistsInfo extends IRequestCollectionParams, IRespo
   items: IPlaylist[]
 }
 
-export interface IPlaylistsRowCollectionProps {
-  playlists: IPlaylist[]
+export interface IPlaylistsCollectionProps {
+  playlists: IPlaylist[],
+  type?: TDynamicCollectionType
 }
 
 export interface IResponseAlbumsInfo extends IRequestCollectionParams, IResponseCollectionParams {
@@ -137,7 +147,7 @@ export interface IResponseAlbumsInfo extends IRequestCollectionParams, IResponse
   }[]
 }
 
-export interface IDynamicRowCollectionItemProps {
+export interface IDynamicCollectionItemProps {
   title: string
   subtitle: string
   image: string
@@ -145,7 +155,7 @@ export interface IDynamicRowCollectionItemProps {
   handleActionClick: () => void
 }
 
-export interface IPlaylistRowCollectionItemProps {
+export interface IPlaylistCollectionItemProps {
   playlist: IPlaylist
 }
 

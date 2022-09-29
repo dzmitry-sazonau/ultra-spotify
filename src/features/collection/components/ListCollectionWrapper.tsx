@@ -5,6 +5,7 @@ import { IReactChildren } from '../../../core/interface'
 const StyledListCollectionWrapper = styled.div`
   display: grid;
   grid-gap: 24px;
+  padding: 0 32px;
 `
 
 const ListCollectionWrapper: FC<IReactChildren> = ({ children }) => (
