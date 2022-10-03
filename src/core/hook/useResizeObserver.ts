@@ -5,7 +5,7 @@ export const useResizeObserver = (
   callback: ResizeObserverCallback
 ) => {
   useEffect(() => {
-    if (ref.current) {
+    if (ref?.current) {
       const observer = new ResizeObserver(callback)
       observer.observe(ref.current)
       return () => observer.disconnect()

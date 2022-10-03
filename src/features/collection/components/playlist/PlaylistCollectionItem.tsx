@@ -6,7 +6,7 @@ const PlaylistCollectionItem: FC<IPlaylistCollectionItemProps> = ({ playlist }) 
   return (
     <DynamicCollectionItem
       link={`/playlist/${playlist.id}`}
-      image={playlist.images[0].url}
+      image={playlist.images[0]?.url}
       title={playlist.name}
       subtitle={playlist.description || playlist.owner.display_name}
       handleActionClick={() => {}}

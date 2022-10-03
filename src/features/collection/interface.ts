@@ -1,5 +1,6 @@
-import { ReactNode } from 'react'
-import { TUserType } from '../user/interface'
+import { ReactNode, RefObject } from 'react'
+import { Column } from 'react-table'
+import { TDynamicHiddenColumns } from '../../core/ui/table/interface'
 
 export interface IDynamicCollectionProps<T> {
   children: (data: T[]) => ReactNode
@@ -168,4 +169,61 @@ export interface IAlbumsRowCollectionProps {
 
 export interface IAlbumRowCollectionItemProps {
   album: IAlbum
+}
+
+export interface ITrack {
+  album: IAlbum;
+  artists: IArtist[];
+  disc_number: number;
+  duration_ms: number;
+  episode: boolean;
+  explicit: boolean;
+  external_ids: IExternalIds;
+  external_urls: IExternalUrls;
+  href: string;
+  id: string;
+  is_local: boolean;
+  is_playable: boolean;
+  name: string;
+  popularity: number;
+  preview_url: string;
+  track: boolean;
+  track_number: number;
+  type: string;
+  uri: string;
+}
+
+export interface IVideoThumbnail {
+  url?: any;
+}
+
+export interface IAddedBy {
+  external_urls: IExternalUrls;
+  href: string;
+  id: string;
+  type: string;
+  uri: string;
+}
+
+export interface ITrackInfo {
+  added_at: Date;
+  added_by: IAddedBy;
+  is_local: boolean;
+  primary_color?: any;
+  track: ITrack;
+  video_thumbnail: IVideoThumbnail;
+}
+
+export interface IResponseTrackInfo extends IRequestCollectionParams, IResponseCollectionParams {
+  items: ITrackInfo[];
+}
+
+export interface IPlaylistTracksTableCollectionProps {
+  id: string
+}
+
+export interface ITracksTableCollectionProps {
+  data: ITrackInfo[]
+  columns: Column<any>[]
+  dynamicHiddenColumns?: TDynamicHiddenColumns
 }

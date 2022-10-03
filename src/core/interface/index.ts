@@ -7,3 +7,5 @@ export interface IReactChildren {
 export interface IClassName {
   className?: string
 }
+
+export type TBreakPoints = 'small' | 'middle' | 'large'

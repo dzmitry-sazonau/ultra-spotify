@@ -1,8 +1,9 @@
 import { api } from '../../core/store/api'
 import {
+  IPlaylist,
   IRequestCollectionParams,
   IResponseAlbumsInfo,
-  IResponsePlaylistsInfo,
+  IResponsePlaylistsInfo, IResponseTrackInfo
 } from './interface'
 import { IUser } from '../user/interface'
 
@@ -28,13 +29,26 @@ const collectionApi = api.injectEndpoints({
         params: { ...arg },
       }),
     }),
-    getPlaylistByUserId: builder.query<IResponsePlaylistsInfo, IRequestCollectionParams & {id: IUser['id']}>({
+    getPlaylistByUserId: builder.query<
+      IResponsePlaylistsInfo,
+      IRequestCollectionParams & { id: IUser['id'] }
+    >({
       query: ({ id, offset, limit }) => ({
         url: `/users/${id}/playlists`,
         method: 'GET',
         params: { offset, limit },
-      })
-    })
+      }),
+    }),
+    getPlaylistItems: builder.query<
+      IResponseTrackInfo,
+      IRequestCollectionParams & { id: IPlaylist['id'] }
+    >({
+      query: ({ id, offset, limit }) => ({
+        url: `playlists/${id}/tracks`,
+        method: 'GET',
+        params: { offset, limit, market: 'BY' },
+      }),
+    }),
   }),
 })
 
@@ -42,10 +56,11 @@ export const {
   useGetCurrentUserPlaylistsQuery,
   useGetCurrentUserAlbumsQuery,
   useGetPlaylistByUserIdQuery,
+  useGetPlaylistItemsQuery,
   util: { getRunningOperationPromises },
 } = collectionApi
 
-export const { getCurrentUserPlaylists, getCurrentUserAlbums } =
+export const { getCurrentUserPlaylists, getCurrentUserAlbums, getPlaylistItems } =
   collectionApi.endpoints
 
 export default collectionApi
