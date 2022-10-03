@@ -1,7 +1,7 @@
 import { NextPageWithLayout } from './_app'
 import { getLayout } from '../features/layout/InnerLayout'
-import ListCollectionWrapper from '../features/collection/components/ListCollectionWrapper'
-import CurrentUserPlaylistsRowCollection from '../features/collection/components/playlist/CurrentUserPlaylistsRowCollection'
+import ListCollectionWrapper from '../features/collection/components/dynamicRowCollection/ListCollectionWrapper'
+import CurrentUserPlaylistsCollection from '../features/collection/components/playlist/CurrentUserPlaylistsCollection'
 import CurrentUserAlbumsCollection from '../features/collection/components/albums/CurrentUserAlbumsCollection'
 import { wrapper } from '../core/store'
 import { GetServerSideProps } from 'next'
@@ -13,7 +13,7 @@ import {
 
 const Home: NextPageWithLayout = () => (
   <ListCollectionWrapper>
-    <CurrentUserPlaylistsRowCollection />
+    <CurrentUserPlaylistsCollection />
     <CurrentUserAlbumsCollection />
   </ListCollectionWrapper>
 )

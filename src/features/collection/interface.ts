@@ -2,20 +2,16 @@ import { ReactNode, RefObject } from 'react'
 import { Column } from 'react-table'
 import { TDynamicHiddenColumns } from '../../core/ui/table/interface'
 
-export interface IDynamicCollectionProps<T> {
+export interface IDynamicCollectionProps<T> extends IIsFullView, IHeaderCollectionProps {
   children: (data: T[]) => ReactNode
-  data: T[],
-  type: TDynamicCollectionType
+  data: T[]
 }
 
-export type TDynamicCollectionType = 'row' | 'table'
-
-export interface IHeaderRowCollectionProps extends IHeaderCollection {
-  action: () => void
+export interface IIsFullView {
+  isFullView?: boolean
 }
 
-export interface IHeaderCollection {
-  children?: ReactNode
+export interface IHeaderCollectionProps {
   title: string
   action?: () => void
 }
@@ -136,9 +132,8 @@ export interface IResponsePlaylistsInfo extends IRequestCollectionParams, IRespo
   items: IPlaylist[]
 }
 
-export interface IPlaylistsCollectionProps {
-  playlists: IPlaylist[],
-  type?: TDynamicCollectionType
+export interface IPlaylistsCollectionProps extends IIsFullView, IHeaderCollectionProps {
+  playlists: IPlaylist[]
 }
 
 export interface IResponseAlbumsInfo extends IRequestCollectionParams, IResponseCollectionParams {
@@ -160,7 +155,7 @@ export interface IPlaylistCollectionItemProps {
   playlist: IPlaylist
 }
 
-export interface IAlbumsRowCollectionProps {
+export interface IAlbumsRowCollectionProps extends IIsFullView, IHeaderCollectionProps{
   albums: {
     added_at: Date;
     album: IAlbum;

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import styled, { css } from 'styled-components'
-import { IHeaderCollection } from '../../interface'
+import { IHeaderCollectionProps } from '../../interface'
 
 const StyledHeaderCollection = styled.div`
   display: flex;
@@ -21,7 +21,23 @@ const StyledTitle = styled.div<{ hasAction: boolean }>`
   `}
 `
 
-const HeaderCollection: FC<IHeaderCollection> = ({ title, action, children }) => (
+const StyledButton = styled.div`
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #B3B3B3;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+  margin-left: 8px;
+
+  :hover {
+    text-decoration: underline;
+  }
+`
+
+const seeAll = 'See All'
+
+const HeaderCollection: FC<IHeaderCollectionProps> = ({ action, title }) => (
   <StyledHeaderCollection>
     <StyledTitle
       hasAction={!!action}
@@ -29,7 +45,7 @@ const HeaderCollection: FC<IHeaderCollection> = ({ title, action, children }) =>
     >
       {title}
     </StyledTitle>
-    {children}
+    {action && <StyledButton onClick={action}>{seeAll}</StyledButton>}
   </StyledHeaderCollection>
 )
 

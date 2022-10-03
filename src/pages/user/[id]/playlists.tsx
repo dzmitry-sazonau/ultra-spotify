@@ -1,13 +1,14 @@
 import { getLayout } from '../../../features/layout/InnerLayout'
 import { NextPageWithLayout } from '../../_app'
-import UserPlaylistsTableCollection from '../../../features/collection/components/playlist/UserPlaylistTableCollection'
+import UserPlaylistFullViewCollection from '../../../features/collection/components/playlist/UserPlaylistFullViewCollection'
+import ListCollectionWrapper from '../../../features/collection/components/dynamicRowCollection/ListCollectionWrapper'
 
 const id = 'dullbat8'
 
 const Playlists: NextPageWithLayout = () => (
-  <>
-    <UserPlaylistsTableCollection />
-  </>
+  <ListCollectionWrapper>
+    <UserPlaylistFullViewCollection />
+  </ListCollectionWrapper>
 )
 
 Playlists.getLayout = getLayout

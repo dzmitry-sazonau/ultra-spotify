@@ -1,19 +1,6 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useResizeObserver } from '../../core/hook'
 import { middleSizeCard } from './contstans'
-import { TDynamicCollectionType } from './interface'
-
-export function useLimitForCollectionByType(type: TDynamicCollectionType) {
-  const data = useMemo(
-    () => ({
-      row: 8,
-      table: 50,
-    }),
-    []
-  )
-
-  return data[type]
-}
 
 export function useDynamicWidth() {
   const [columCount, setColumCount] = useState(0)

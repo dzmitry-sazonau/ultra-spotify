@@ -1,17 +1,27 @@
 import React, { FC } from 'react'
-import DynamicCollection from '../DynamicCollection'
+import DynamicRowCollection from '../dynamicRowCollection/DynamicRowCollection'
 import AlbumRowCollectionItem from './AlbumRowCollectionItem'
 import { IAlbumsRowCollectionProps } from '../../interface'
 
-const AlbumsRowCollection: FC<IAlbumsRowCollectionProps> = ({ albums }) => (
-  <DynamicCollection data={albums}>
+const AlbumsRowCollection: FC<IAlbumsRowCollectionProps> = ({
+  albums,
+  action,
+  title,
+  isFullView
+}) => (
+  <DynamicRowCollection
+    isFullView={isFullView}
+    action={action}
+    title={title}
+    data={albums}
+  >
     {(props) => props?.map((albumInfo) => (
       <AlbumRowCollectionItem
         key={albumInfo.album.id}
         album={albumInfo.album}
       />
     ))}
-  </DynamicCollection>
+  </DynamicRowCollection>
 )
 
 export default AlbumsRowCollection

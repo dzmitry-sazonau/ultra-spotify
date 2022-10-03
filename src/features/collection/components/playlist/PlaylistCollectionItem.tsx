@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { IPlaylistCollectionItemProps } from '../../interface'
-import DynamicCollectionItem from '../DynamicCollectionItem'
+import DynamicRowCollectionItem from '../dynamicRowCollection/DynamicRowCollectionItem'
 
 const PlaylistCollectionItem: FC<IPlaylistCollectionItemProps> = ({ playlist }) => {
   return (
-    <DynamicCollectionItem
+    <DynamicRowCollectionItem
       link={`/playlist/${playlist.id}`}
       image={playlist.images[0]?.url}
       title={playlist.name}
