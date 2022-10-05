@@ -36,7 +36,7 @@ const useTable = ({
   onRowClick,
   dynamicHiddenColumns,
 }: ITableProviderProps) => {
-  const tableInstance = useReactTable({ columns, data })
+  const tableInstance = useReactTable({ columns, data,  })
   const tableRef = useDynamicTableColumns(tableInstance, dynamicHiddenColumns)
 
   return {

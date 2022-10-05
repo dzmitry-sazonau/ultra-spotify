@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from 'react'
 import styled from 'styled-components'
 import { useTableContext } from './TableContext'
+import { IClassName, IReactChildren } from '../../interface'
 
 const StyledTableRow = styled.div<{ gridTemplateColumns: string }>`
   display: grid;
@@ -10,17 +11,24 @@ const StyledTableRow = styled.div<{ gridTemplateColumns: string }>`
   padding: 0 16px;
 `
 
-const TableRow: FC<{ children: ReactNode; onClick?: () => void }> = ({
+const TableRow: FC<{ onClick?: () => void } & IReactChildren & IClassName> = ({
   children,
+  className,
 }) => {
   const {
     tableInstance: { columns },
   } = useTableContext()
 
-  const gridTemplateColumns = columns.filter((columns) => columns.isVisible).map((column) => column.width).join(' ')
+  const gridTemplateColumns = columns
+    .filter((columns) => columns.isVisible)
+    .map((column) => column.width)
+    .join(' ')
 
   return (
-    <StyledTableRow gridTemplateColumns={gridTemplateColumns}>
+    <StyledTableRow
+      className={className}
+      gridTemplateColumns={gridTemplateColumns}
+    >
       {children}
     </StyledTableRow>
   )

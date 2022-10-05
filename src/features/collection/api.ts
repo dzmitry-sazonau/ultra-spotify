@@ -44,11 +44,18 @@ const collectionApi = api.injectEndpoints({
       IRequestCollectionParams & { id: IPlaylist['id'] }
     >({
       query: ({ id, offset, limit }) => ({
-        url: `playlists/${id}/tracks`,
+        url: `/playlists/${id}/tracks`,
         method: 'GET',
         params: { offset, limit, market: 'BY' },
       }),
     }),
+    checkUserSavedTracks: builder.query<boolean[], {ids: string[]}>({
+      query: ({ ids }) => ({
+        url: `/me/tracks/contains`,
+        method: 'GET',
+        params: { ids: ids.join(',') },
+      }),
+    })
   }),
 })
 
@@ -57,6 +64,7 @@ export const {
   useGetCurrentUserAlbumsQuery,
   useGetPlaylistByUserIdQuery,
   useGetPlaylistItemsQuery,
+  useCheckUserSavedTracksQuery,
   util: { getRunningOperationPromises },
 } = collectionApi
 

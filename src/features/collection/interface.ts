@@ -73,27 +73,6 @@ export interface IExternalIds {
   upc: string;
 }
 
-export interface ITrack {
-  artists: IArtist[];
-  available_markets: string[];
-  disc_number: number;
-  duration_ms: number;
-  explicit: boolean;
-  external_urls: IExternalUrls;
-  href: string;
-  id: string;
-  is_local: boolean;
-  name: string;
-  preview_url: string;
-  track_number: number;
-  type: string;
-  uri: string;
-}
-
-export interface ITracksInfo extends IRequestCollectionParams, IRequestCollectionParams{
-  items: ITrack[];
-}
-
 export interface IAlbum {
   album_type: string;
   artists: IArtist[];
@@ -111,7 +90,7 @@ export interface IAlbum {
   release_date: string;
   release_date_precision: string;
   total_tracks: number;
-  tracks: ITracksInfo;
+  tracks: ITracksShort;
   type: string;
   uri: string;
 }
@@ -206,6 +185,7 @@ export interface ITrackInfo {
   is_local: boolean;
   primary_color?: any;
   track: ITrack;
+  isSaved: boolean;
   video_thumbnail: IVideoThumbnail;
 }
 

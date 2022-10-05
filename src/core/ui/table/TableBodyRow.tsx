@@ -4,11 +4,16 @@ import styled from 'styled-components'
 import { useTableContext } from './TableContext'
 import TableRow from './TableRow'
 
-const StyledTableBodyRow = styled(TableRow)``
+export const StyledTableBodyRow = styled(TableRow)`
+  && {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #a7a7a7;
 
-const StyledCell = styled.div`
-  display: flex;
-  align-items: center;
+    :hover {
+      background-color: hsla(0, 0%, 100%, 0.1);
+    }
+  }
 `
 
 const TableBodyRow: FC<{ row: Row }> = ({ row }) => {
@@ -24,7 +29,7 @@ const TableBodyRow: FC<{ row: Row }> = ({ row }) => {
       onClick={() => onRowClick?.(row)}
     >
       {row.cells.map((cell) => (
-        <StyledCell {...cell.getCellProps()}>{cell.render('Cell')}</StyledCell>
+        <>{cell.render('Cell')}</>
       ))}
     </StyledTableBodyRow>
   )

@@ -1,6 +1,11 @@
 import React, { FC } from 'react'
 import { useTableContext } from './TableContext'
 import TableBodyRow from './TableBodyRow'
+import styled from 'styled-components'
+
+const StyledTableBody = styled.div`
+  padding: 0 32px;
+`
 
 const TableBody: FC = () => {
   const {
@@ -8,7 +13,7 @@ const TableBody: FC = () => {
   } = useTableContext()
 
   return (
-    <div {...getTableBodyProps()}>
+    <StyledTableBody {...getTableBodyProps()}>
       {rows.map((row) => {
         prepareRow(row)
         return (
@@ -18,7 +23,7 @@ const TableBody: FC = () => {
           />
         )
       })}
-    </div>
+    </StyledTableBody>
   )
 }
 

@@ -11,7 +11,7 @@ import {
 } from '../../features/collection/api'
 
 const StyledPlaylist = styled.div`
-  padding: 24px 32px;
+  padding: 24px 0px;
 `
 
 const Playlist: NextPageWithLayout = () => {
@@ -28,7 +28,7 @@ Playlist.getLayout = getLayout
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async (context) => {
-    store.dispatch(getPlaylistItems.initiate({id: context.query.id as string, offset: 0, limit: 8 }))
+    await store.dispatch(getPlaylistItems.initiate({id: context.query.id as string, offset: 0, limit: 8 })).unwrap()
 
     await Promise.all(getRunningOperationPromises())
 

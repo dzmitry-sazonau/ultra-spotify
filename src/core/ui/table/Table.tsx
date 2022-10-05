@@ -7,6 +7,7 @@ import TableHead from './TableHead'
 
 const StyledTable = styled.div`
   height: 100%;
+  cursor: default;
 `
 
 const Table: FC = () => {
