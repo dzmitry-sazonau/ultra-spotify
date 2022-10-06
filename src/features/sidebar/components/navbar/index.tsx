@@ -14,11 +14,20 @@ const StyledLogo = styled.img`
   width: 100%;
 `
 
+const StyledHr = styled.hr`
+  height: 1px;
+  width: 100%;
+  border: 0;
+  background: #282828;
+  margin-top: 12px;
+`
+
 const Navbar = () => {
   return (
     <StyledNavbar>
       <StyledLogo src="/spotify2.svg" alt="Spotify" />
       <NavLinks />
+      <StyledHr />
     </StyledNavbar>
 
   )

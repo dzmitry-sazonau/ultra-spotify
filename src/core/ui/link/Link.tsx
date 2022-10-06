@@ -4,9 +4,9 @@ import { ILinkProps } from './interface'
 import styled from 'styled-components'
 
 const StyledLink = styled.span`
-  color: #FFFFFF;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 500;
 
   :hover {
     text-decoration: underline;
