@@ -1,17 +1,43 @@
 import NextApp, { AppProps } from 'next/app'
-import { useRouter } from 'next/router'
 import { createGlobalStyle } from 'styled-components'
 import { wrapper } from '../core/store'
 import { getCurrentUserProfile } from '../features/user/api'
 import { setCurrentUser } from '../features/user/slice'
 import { parseCookies } from 'nookies'
 import { setAuthData } from '../features/auth/slice'
-import { ReactElement, ReactNode, useEffect } from 'react'
+import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
-import { useAppDispatch } from '../core/store/hook'
-import { updateHistory, initialize } from '../features/history/slice'
 
 const GlobalStyle = createGlobalStyle`
+  ::-webkit-scrollbar {
+    background-color: transparent;
+    width: 8px
+  }
+
+  /* background of the scrollbar except button or resizer */
+  ::-webkit-scrollbar-track {
+    background-color: transparent
+  }
+
+  ::-webkit-scrollbar-track:hover {
+    background-color: transparent
+  }
+
+  /* scrollbar itself */
+  ::-webkit-scrollbar-thumb {
+    background-color: #424040;
+    border-radius: 16px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #424040;
+  }
+
+  /* set button(top and bottom of the scrollbar) */
+  ::-webkit-scrollbar-button {
+    display: none
+  }
+
   html,
   body {
     height: 100%;

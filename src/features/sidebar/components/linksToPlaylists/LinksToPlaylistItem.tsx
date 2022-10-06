@@ -3,10 +3,16 @@ import styled from 'styled-components'
 import { ILinksToPlaylistItemProps } from '../../interface'
 import { useRouter } from 'next/router'
 import ActiveLink from '../../../../core/ui/link/ActiveLink'
+import { textEllipsis } from '../../../../core/mixins'
 
 const StyledLinksToPlaylistItem = styled(ActiveLink)`
   && {
     height: 32px;
+    line-height: 32px;
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+    ${textEllipsis()}
   }
 `
 
