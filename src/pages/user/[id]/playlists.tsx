@@ -1,7 +1,7 @@
 import { getLayout } from '../../../features/layout/InnerLayout'
 import { NextPageWithLayout } from '../../_app'
 import UserPlaylistFullViewCollection from '../../../features/collection/components/playlist/UserPlaylistFullViewCollection'
-import ListCollectionWrapper from '../../../features/collection/components/dynamicRowCollection/ListCollectionWrapper'
+import ListCollectionWrapper from '../../../features/collection/components/ListCollectionWrapper'
 
 const id = 'dullbat8'
 

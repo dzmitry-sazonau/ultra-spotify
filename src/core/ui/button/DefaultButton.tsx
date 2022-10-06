@@ -1,20 +1,25 @@
 import React, { FC } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { ButtonColor, IDefaultButtonProps } from './interface'
 import { buttonSizeMap } from './constants'
 
 const StyledButtonDefault = styled.button<{
-  size: number
-  color: ButtonColor
+  size?: number
+  color?: ButtonColor
 }>`
-  height: ${(props) => props.size}px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 500px;
   border: 0;
-  background-color: ${(props) => props.color === 'primary' ? '#1CDF63' : '#484848'};
+  background-color: transparent;
   cursor: pointer;
+  ${(props) => props.size && css`
+    height: ${props.size}px;
+  `}
+  ${(props) => props.color && css`
+    background-color: ${props.color === 'primary' ? '#1CDF63' : '#484848'};
+  `}
 
   :disabled {
     opacity: .6;
@@ -27,13 +32,13 @@ const DefaultButton: FC<IDefaultButtonProps> = ({
   size,
   disabled,
   className,
-  color = 'primary',
+  color,
   onClick
 }) => {
   return (
     <StyledButtonDefault
       type="button"
-      size={buttonSizeMap[size]}
+      size={size && buttonSizeMap[size]}
       disabled={disabled}
       className={className}
       color={color}

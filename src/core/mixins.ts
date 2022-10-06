@@ -9,3 +9,10 @@ export const textEllipsis = () => css`
   overflow: hidden;
   text-overflow: ellipsis;
 `
+
+export const dotBeforeElement = () => css`
+  ::before {
+    content: "•";
+    margin: 0 4px;
+  }
+`

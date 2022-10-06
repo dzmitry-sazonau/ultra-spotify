@@ -8,6 +8,7 @@ import { StyledTableCell } from '../../../../core/ui/table/TableCell'
 const StyledTrackInfo = styled(StyledTableCell)`
   align-self: start;
   height: 100%;
+  min-width: 200px;
 `
 
 const StyledTrackImage = styled.img`
@@ -52,7 +53,7 @@ export const StyledArtistName = styled(Link)`
 const TrackInfo: FC<{ track: ITrack }> = ({ track }) => {
   return (
     <StyledTrackInfo>
-      <StyledTrackImage src={track.album?.images[2].url}/>
+      <StyledTrackImage src={track.album?.images[2]?.url || ''}/>
 
       <StyledTrackTitleWrapper>
         <StyledTrackName href={`/track/${track.id}`}>

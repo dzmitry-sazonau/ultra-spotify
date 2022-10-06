@@ -1,40 +1,25 @@
 import { getLayout } from '../../features/layout/InnerLayout'
 import { NextPageWithLayout } from '../_app'
 import styled from 'styled-components'
-import PlaylistTracksTableCollection from '../../features/collection/components/tracks/PlaylistTracksTableCollection'
-import { useRouter } from 'next/router'
-import { GetServerSideProps } from 'next'
-import { wrapper } from '../../core/store'
-import {
-  getPlaylistItems,
-  getRunningOperationPromises
-} from '../../features/collection/api'
+import PlaylistTracksCollection from '../../features/collection/components/tracks/PlaylistTracksCollection'
+import PlaylistCollectionHeader from '../../features/collection/components/header/PlaylistCollectionHeader'
+import CollectionActionPanel from '../../features/collection/components/CollectionActionPanel'
 
 const StyledPlaylist = styled.div`
-  padding: 24px 0px;
+  padding-bottom: 24px;
+  position: relative;
 `
 
 const Playlist: NextPageWithLayout = () => {
-  const { query } = useRouter()
-
   return (
     <StyledPlaylist>
-      <PlaylistTracksTableCollection id={query.id as string} />
+      <PlaylistCollectionHeader />
+      <CollectionActionPanel />
+      <PlaylistTracksCollection />
     </StyledPlaylist>
   )
 }
 
 Playlist.getLayout = getLayout
-
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps((store) => async (context) => {
-    await store.dispatch(getPlaylistItems.initiate({id: context.query.id as string, offset: 0, limit: 8 })).unwrap()
-
-    await Promise.all(getRunningOperationPromises())
-
-    return {
-      props: {},
-    }
-  })
 
 export default Playlist

@@ -2,13 +2,16 @@ import React, { FC, ReactElement } from 'react'
 import styled from 'styled-components'
 import { IReactChildren } from '../../core/interface'
 import Sidebar from '../sidebar/components'
-import Header from '../header/Header'
+import MainHeader from '../header/components/MainHeader'
 import Player from '../player/components'
 
 const StyledInnerLayout = styled.div`
   height: 100%;
   overflow: hidden;
   display: grid;
+  gap: 8px;
+  padding: 8px;
+  background: black;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;
 `
@@ -23,14 +26,17 @@ const StyledMainLayout = styled.div`
 const StyledContentLayout = styled.div`
   height: 100%;
   background-color: #121212;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 8px;
+  margin-top: 8px;
 `
 
 const InnerLayout: FC<IReactChildren> = ({ children }) => (
   <StyledInnerLayout>
     <Sidebar />
     <StyledMainLayout>
-      <Header />
+      <MainHeader />
       <StyledContentLayout>{children}</StyledContentLayout>
     </StyledMainLayout>
     <Player />

@@ -1,6 +1,6 @@
 import { NextPageWithLayout } from './_app'
 import { getLayout } from '../features/layout/InnerLayout'
-import ListCollectionWrapper from '../features/collection/components/dynamicRowCollection/ListCollectionWrapper'
+import ListCollectionWrapper from '../features/collection/components/ListCollectionWrapper'
 import CurrentUserPlaylistsCollection from '../features/collection/components/playlist/CurrentUserPlaylistsCollection'
 import CurrentUserAlbumsCollection from '../features/collection/components/albums/CurrentUserAlbumsCollection'
 import { wrapper } from '../core/store'

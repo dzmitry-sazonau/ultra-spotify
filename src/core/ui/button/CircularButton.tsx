@@ -10,8 +10,6 @@ const StyledCircularButton = styled(DefaultButton)`
 
     & > span > svg {
       color: ${(props) => props.color === 'primary' ? '000' : '#fff'};
-      height: ${(props) => iconSizeMap[props.size]}px;
-      width: ${(props) => iconSizeMap[props.size]}px;
     }
   }
 `

@@ -3,6 +3,7 @@ import { useGetUserProfileByIdQuery } from '../api'
 import { useRouter } from 'next/router'
 import { useGetPlaylistByUserIdQuery } from '../../collection/api'
 import styled from 'styled-components'
+import { dotBeforeElement } from '../../../core/mixins'
 
 const StyledHeaderProfile = styled.div`
   display: flex;
@@ -64,9 +65,8 @@ const StyledDetailsWrapper = styled.div`
 const StyledDetails = styled.span`
   font-size: 14px;
 
-  :not(:first-child)::before {
-    content: "•";
-    margin: 0 4px;
+  :not(:first-child) {
+    ${dotBeforeElement()}
   }
 `
 
@@ -83,6 +83,7 @@ const HeaderProfile = () => {
       <StyledProfileImageWrapper>
         <StyledProfileImage src={profileData?.images[0]?.url} />
       </StyledProfileImageWrapper>
+
       <StyledProfileInfoWrapper>
         <StyledTitle>{title}</StyledTitle>
           <StyledProfileName>{profileData?.display_name}</StyledProfileName>

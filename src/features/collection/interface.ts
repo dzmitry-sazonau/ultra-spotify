@@ -1,8 +1,7 @@
-import { ReactNode, RefObject } from 'react'
-import { Column } from 'react-table'
-import { TDynamicHiddenColumns } from '../../core/ui/table/interface'
+import { ReactNode } from 'react'
+import { IFollowers } from '../user/interface'
 
-export interface IDynamicCollectionProps<T> extends IIsFullView, IHeaderCollectionProps {
+export interface IDynamicCollectionProps<T> extends IIsFullView, ICollectionTitleProps {
   children: (data: T[]) => ReactNode
   data: T[]
 }
@@ -11,7 +10,7 @@ export interface IIsFullView {
   isFullView?: boolean
 }
 
-export interface IHeaderCollectionProps {
+export interface ICollectionTitleProps {
   title: string
   action?: () => void
 }
@@ -46,10 +45,14 @@ export interface IPlaylist {
   primary_color?: any
   public: boolean
   snapshot_id: string
-  tracks: ITracksShort
   type: string
   uri: string
 }
+
+export interface IPlaylistWithShortTrack extends IPlaylist {
+  tracks: ITracksShort
+}
+
 
 export interface IExternalUrls {
   spotify: string;
@@ -108,11 +111,11 @@ export interface IResponseCollectionParams {
 }
 
 export interface IResponsePlaylistsInfo extends IRequestCollectionParams, IResponseCollectionParams {
-  items: IPlaylist[]
+  items: IPlaylistWithShortTrack[]
 }
 
-export interface IPlaylistsCollectionProps extends IIsFullView, IHeaderCollectionProps {
-  playlists: IPlaylist[]
+export interface IPlaylistsCollectionProps extends IIsFullView, ICollectionTitleProps {
+  playlists: IPlaylistWithShortTrack[]
 }
 
 export interface IResponseAlbumsInfo extends IRequestCollectionParams, IResponseCollectionParams {
@@ -131,10 +134,10 @@ export interface IDynamicCollectionItemProps {
 }
 
 export interface IPlaylistCollectionItemProps {
-  playlist: IPlaylist
+  playlist: IPlaylistWithShortTrack
 }
 
-export interface IAlbumsRowCollectionProps extends IIsFullView, IHeaderCollectionProps{
+export interface IAlbumsRowCollectionProps extends IIsFullView, ICollectionTitleProps{
   albums: {
     added_at: Date;
     album: IAlbum;
@@ -189,16 +192,21 @@ export interface ITrackInfo {
   video_thumbnail: IVideoThumbnail;
 }
 
-export interface IResponseTrackInfo extends IRequestCollectionParams, IResponseCollectionParams {
+export interface IResponsePlaylistTrackInfo extends IRequestCollectionParams, IResponseCollectionParams {
   items: ITrackInfo[];
 }
 
-export interface IPlaylistTracksTableCollectionProps {
-  id: string
+export interface IResponsePlaylist extends IPlaylist {
+  external_urls: IExternalUrls;
+  followers: IFollowers;
+  tracks: {
+    total: IResponseCollectionParams['total']
+  }
 }
 
-export interface ITracksTableCollectionProps {
-  data: ITrackInfo[]
-  columns: Column<any>[]
-  dynamicHiddenColumns?: TDynamicHiddenColumns
+export interface ICollectionDetailsHeaderProps {
+  href: string
+  name: string
+  followers: number
+  tracks: number
 }

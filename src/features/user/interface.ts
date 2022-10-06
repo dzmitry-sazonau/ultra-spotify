@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 export interface IExplicitContent {
   filter_enabled: boolean;
   filter_locked: boolean;
@@ -37,4 +39,9 @@ export type TUserType = 'artist' | 'user'
 
 export interface IUserState {
   currentUser: IUser
+}
+
+export interface IActionPanelProps {
+  children?: ReactNode
+  userType: TUserType
 }

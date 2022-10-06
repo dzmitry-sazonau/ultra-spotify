@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { useDynamicWidth } from '../../hook'
 import { IDynamicCollectionProps } from '../../interface'
-import HeaderCollection from '../header/HeaderCollection'
+import CollectionTitle from '../CollectionTitle'
 
 const StyledDynamicRowCollection = styled.div<{ column: number; gap: number }>`
   display: grid;
@@ -27,7 +27,7 @@ const DynamicRowCollection = <T extends unknown>({
 
   return (
     <div>
-      <HeaderCollection action={action} title={title} />
+      <CollectionTitle action={action} title={title} />
       <StyledDynamicRowCollection
         ref={ref}
         column={columCount}

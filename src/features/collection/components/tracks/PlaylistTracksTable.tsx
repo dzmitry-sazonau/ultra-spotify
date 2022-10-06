@@ -1,18 +1,16 @@
 import React, { FC } from 'react'
-import TracksTableCollection from './TracksTableCollection'
 import { Column } from 'react-table'
-import { IPlaylistTracksTableCollectionProps } from '../../interface'
+import { StyledTableCell } from '../../../../core/ui/table/TableCell'
 import TrackInfo, { StyledArtistName } from './TrackInfo'
-import TrackControl, { StyledHeartWrapper } from './TrackControl'
-import styled from 'styled-components'
-import { StyledTableBodyRow } from '../../../../core/ui/table/TableBodyRow'
-import { useGetPlaylistItemsData } from '../../hook'
-import { FieldTimeOutlined } from '@ant-design/icons'
 import { format } from 'date-fns'
+import { FieldTimeOutlined } from '@ant-design/icons'
+import TrackControl, { StyledHeartWrapper } from './TrackControl'
+import Table from '../../../../core/ui/table/Table'
+import styled from 'styled-components'
 import Link from '../../../../core/ui/link/Link'
 import { textEllipsis } from '../../../../core/mixins'
-import { StyledTableCell } from '../../../../core/ui/table/TableCell'
-import { StyledHeaderCell } from '../../../../core/ui/table/TableHeadRow'
+import { StyledTableBodyRow } from '../../../../core/ui/table/TableBodyRow'
+import { ITrackInfo } from '../../interface'
 
 const StyledAlbumName = styled(Link)`
   && {
@@ -24,16 +22,6 @@ const StyledAlbumName = styled(Link)`
 `
 
 const StyledTableWrapper = styled.div`
-  ${StyledHeaderCell} {
-    :nth-child(2) {
-      justify-self: start;
-    }
-
-    :last-child {
-      justify-self: end;
-    }
-  }
-  
   ${StyledTableBodyRow} {
     :hover {
       ${StyledHeartWrapper} {
@@ -51,7 +39,7 @@ const columns: Column<any>[] = [
     Header: '#',
     accessor: (_, i: number) => i + 1,
     width: '16px',
-    Cell: ({ value }) => <StyledTableCell>{value}</StyledTableCell>
+    Cell: ({ value }) => <StyledTableCell>{value}</StyledTableCell>,
   },
   {
     id: 'info',
@@ -89,29 +77,22 @@ const columns: Column<any>[] = [
 ]
 
 const dynamicHiddenColumns = {
-  small: ['track.album.name', 'added_at'],
+  small: ['track.album', 'added_at'],
   middle: ['added_at'],
   large: [],
 }
 
-const PlaylistTracksTableCollection: FC<
-  IPlaylistTracksTableCollectionProps
-> = ({ id }) => {
-  const { isSuccess, data } = useGetPlaylistItemsData(id)
+const PlaylistTracksTable: FC<{ trackInfo: ITrackInfo[] }> = ({
+  trackInfo,
+}) => (
+  <StyledTableWrapper>
+    <Table
+      data={trackInfo}
+      onRowClick={() => {}}
+      columns={columns}
+      dynamicHiddenColumns={dynamicHiddenColumns}
+    />
+  </StyledTableWrapper>
+)
 
-  if (!isSuccess) {
-    return <div>Loading...</div>
-  }
-
-  return (
-    <StyledTableWrapper>
-      <TracksTableCollection
-        data={data.items}
-        columns={columns}
-        dynamicHiddenColumns={dynamicHiddenColumns}
-      />
-    </StyledTableWrapper>
-  )
-}
-
-export default PlaylistTracksTableCollection
+export default PlaylistTracksTable

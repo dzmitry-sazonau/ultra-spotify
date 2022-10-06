@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const StyledPlayer = styled.div`
   height: 60px;
-  background-color: #181818;
+  background-color: #000000;
   grid-column-start: 1;
   grid-column-end: 3;
 `

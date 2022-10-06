@@ -1,9 +1,9 @@
 import { getLayout } from '../../../features/layout/InnerLayout'
 import { NextPageWithLayout } from '../../_app'
 import HeaderProfile from '../../../features/user/components/HeaderProfile'
-import ListCollectionWrapper from '../../../features/collection/components/dynamicRowCollection/ListCollectionWrapper'
+import ListCollectionWrapper from '../../../features/collection/components/ListCollectionWrapper'
 import UserPlaylistsCollection from '../../../features/collection/components/playlist/UserPlaylistsCollection'
-import UserActionPanel from '../../../features/actionPanel/components/UserActionPanel'
+import UserActionPanel from '../../../features/user/components/actionPanel/UserActionPanel'
 
 const id = 'dullbat8'
 

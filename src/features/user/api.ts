@@ -8,7 +8,7 @@ const userApi = api.injectEndpoints({
         url: '/me',
         method: 'GET',
       }),
-      providesTags: ['Following']
+      providesTags: ['UserFollowing']
     }),
     checkIfUserFollows: builder.query<
       boolean[],
@@ -19,7 +19,7 @@ const userApi = api.injectEndpoints({
         method: 'GET',
         params: { ...arg },
       }),
-      providesTags: ['Following']
+      providesTags: ['UserFollowing']
     }),
     followArtistOrUser: builder.mutation<
       void,
@@ -30,7 +30,7 @@ const userApi = api.injectEndpoints({
         method: 'PUT',
         params: { ...arg },
       }),
-      invalidatesTags: ['Following']
+      invalidatesTags: ['UserFollowing']
     }),
     unfollowArtistOrUser: builder.mutation<
       void,
@@ -41,14 +41,14 @@ const userApi = api.injectEndpoints({
         method: 'DELETE',
         params: { ...arg },
       }),
-      invalidatesTags: ['Following']
+      invalidatesTags: ['UserFollowing']
     }),
     getUserProfileById: builder.query<IUser, string>({
       query: (id) => ({
         url: `/users/${id}`,
         method: 'GET',
       }),
-      providesTags: ['Following']
+      providesTags: ['UserFollowing']
     }),
   }),
 })

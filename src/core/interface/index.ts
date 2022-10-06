@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 export interface IReactChildren {
-  children: ReactNode
+  children?: ReactNode
 }
 
 export interface IClassName {

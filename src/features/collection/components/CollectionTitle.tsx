@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import styled, { css } from 'styled-components'
-import { IHeaderCollectionProps } from '../../interface'
+import { ICollectionTitleProps } from '../interface'
 
-const StyledHeaderCollection = styled.div`
+const StyledCollectionTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,8 +37,8 @@ const StyledButton = styled.div`
 
 const seeAll = 'See All'
 
-const HeaderCollection: FC<IHeaderCollectionProps> = ({ action, title }) => (
-  <StyledHeaderCollection>
+const CollectionTitle: FC<ICollectionTitleProps> = ({ action, title }) => (
+  <StyledCollectionTitle>
     <StyledTitle
       hasAction={!!action}
       onClick={action}
@@ -46,7 +46,7 @@ const HeaderCollection: FC<IHeaderCollectionProps> = ({ action, title }) => (
       {title}
     </StyledTitle>
     {action && <StyledButton onClick={action}>{seeAll}</StyledButton>}
-  </StyledHeaderCollection>
+  </StyledCollectionTitle>
 )
 
-export default HeaderCollection
+export default CollectionTitle
