@@ -1,4 +1,4 @@
-import { IImage } from './interface'
+import { IImage } from './entity'
 
 export const getLastImageSrc = (images: IImage[]) => {
   if (!images) {

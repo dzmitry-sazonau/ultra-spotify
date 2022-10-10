@@ -1,16 +1,15 @@
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useResizeObserver } from '../../core/hook'
 import { middleSizeCard } from './contstans'
 import {
+  useCheckUserFollowAlbumQuery,
   useCheckUserFollowPlaylistQuery,
-  useCheckUserSavedTracksQuery,
+  useCheckUserSavedTracksQuery, useFollowAlbumMutation,
   useFollowPlaylistMutation,
-  useGetPlaylistItemsQuery,
   useRemoveTracksForCurrentUserMutation,
-  useSaveTracksForCurrentUserMutation,
+  useSaveTracksForCurrentUserMutation, useUnfollowAlbumMutation,
   useUnfollowPlaylistMutation
 } from './api'
-import { IResponsePlaylistTrackInfo } from './interface'
 import { useRouter } from 'next/router'
 import { useAppSelector } from '../../core/store/hook'
 import { selectCurrentUser } from '../user/selector'
@@ -38,35 +37,15 @@ export function useDynamicWidth() {
   }
 }
 
-export function useGetPlaylistItemsData(id: string) {
-  const tracksInfo = useGetPlaylistItemsQuery({
-    id,
-    offset: 0,
-    limit: 50,
+export function useCheckSavedTrack(ids?: string[]) {
+  const { data: savedTrackIds } = useCheckUserSavedTracksQuery(ids!, {
+    skip: !ids,
   })
 
-  const { data: savedTrackIds, isSuccess } = useCheckUserSavedTracksQuery(
-    tracksInfo.data?.items.map((trackInfo) => trackInfo.track.id)!,
-    { skip: !tracksInfo.isSuccess }
+  return useCallback(
+    (index: number) => !!(savedTrackIds && savedTrackIds[index]),
+    [savedTrackIds]
   )
-
-  if (!isSuccess) {
-    return {
-      isSuccess,
-      data: undefined,
-    }
-  }
-
-  return {
-    isSuccess,
-    data: ({
-      ...tracksInfo.data!,
-      items: tracksInfo.data!.items.map((trackInfo, index) => ({
-        ...trackInfo,
-        isSaved: savedTrackIds[index],
-      }))
-    } as IResponsePlaylistTrackInfo ),
-  }
 }
 
 export function usePlaylistFollow() {
@@ -87,10 +66,23 @@ export function usePlaylistFollow() {
   }
 }
 
+export function useAlbumFollow() {
+  const { query } = useRouter()
+  const { data } = useCheckUserFollowAlbumQuery([query.id as string])
+  const isFollowed = data?.at(0)
+
+  const [follow] = useFollowAlbumMutation()
+  const [unfollow] = useUnfollowAlbumMutation()
+
+  return {
+    isFollowed,
+    action: () => (isFollowed ? unfollow : follow)(query.id as string),
+  }
+}
+
 export function useTrackFollowAction(isSaved: boolean, ids: string[]) {
   const [save] = useSaveTracksForCurrentUserMutation()
   const [remove] = useRemoveTracksForCurrentUserMutation()
 
   return () => (isSaved ? remove : save)(ids)
 }
-

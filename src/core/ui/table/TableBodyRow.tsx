@@ -29,7 +29,7 @@ const TableBodyRow: FC<{ row: Row }> = ({ row }) => {
       onClick={() => onRowClick?.(row)}
     >
       {row.cells.map((cell) => (
-        <>{cell.render('Cell')}</>
+        <React.Fragment key={cell.column.id}>{cell.render('Cell')}</React.Fragment>
       ))}
     </StyledTableBodyRow>
   )

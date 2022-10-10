@@ -3,8 +3,8 @@ import { useGetPlaylistQuery } from '../../api'
 import { useRouter } from 'next/router'
 import HeaderWrapper from '../../../header/components/source/HeaderWrapper'
 import HeaderInfo from '../../../header/components/source/HeaderInfo'
-import CollectionDetailsHeader from './CollectionDetailsHeader'
-import { IImage } from '../../interface'
+import HeaderDetails from './HeaderDetails'
+import { IImage } from '../../entity'
 import { THeaderImage } from '../../../header/interface'
 
 function useImageType(images: IImage[]): THeaderImage {
@@ -30,7 +30,7 @@ const PlaylistCollectionHeader = () => {
         name={data?.name!}
         description={data?.description}
       >
-        <CollectionDetailsHeader
+        <HeaderDetails
           href={`/user/${data?.owner.id}`}
           name={data?.owner.display_name!}
           followers={data?.followers.total!}

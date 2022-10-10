@@ -15,10 +15,10 @@ const AlbumsRowCollection: FC<IAlbumsRowCollectionProps> = ({
     title={title}
     data={albums}
   >
-    {(props) => props?.map((albumInfo) => (
+    {(props) => props?.map((album) => (
       <AlbumRowCollectionItem
-        key={albumInfo.album.id}
-        album={albumInfo.album}
+        key={album.id}
+        album={album}
       />
     ))}
   </DynamicRowCollection>

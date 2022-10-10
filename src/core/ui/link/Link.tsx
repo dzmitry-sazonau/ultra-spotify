@@ -7,6 +7,7 @@ const StyledLink = styled.span`
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
+  color: #fff;
 
   :hover {
     text-decoration: underline;

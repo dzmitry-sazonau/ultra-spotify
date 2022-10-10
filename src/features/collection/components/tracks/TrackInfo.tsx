@@ -1,14 +1,20 @@
 import React, { FC } from 'react'
-import { ITrack } from '../../interface'
 import styled from 'styled-components'
 import Link from '../../../../core/ui/link/Link'
 import { textEllipsis } from '../../../../core/mixins'
 import { StyledTableCell } from '../../../../core/ui/table/TableCell'
+import { ITrackInfoProps } from '../../interface'
+import Explicit from '../../../../core/ui/Explicit'
 
 const StyledTrackInfo = styled(StyledTableCell)`
   align-self: start;
   height: 100%;
   min-width: 200px;
+`
+
+const StyledSubTitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `
 
 const StyledTrackImage = styled.img`
@@ -45,31 +51,46 @@ const StyledArtistsWrapper = styled.span`
 export const StyledArtistName = styled(Link)`
   && {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     color: #b3b3b3;
+    line-height: 22.4px;
   }
 `
 
-const TrackInfo: FC<{ track: ITrack }> = ({ track }) => {
+const StyledExplicit = styled(Explicit)`
+  && {
+    margin-right: 8px;
+  }
+`
+
+const TrackInfo: FC<ITrackInfoProps> = ({
+  name,
+  artists,
+  image,
+  id,
+  explicit,
+}) => {
   return (
     <StyledTrackInfo>
-      <StyledTrackImage src={track.album?.images[2]?.url || ''}/>
+      {image && <StyledTrackImage src={image} />}
 
       <StyledTrackTitleWrapper>
-        <StyledTrackName href={`/track/${track.id}`}>
-          {track.name}
-        </StyledTrackName>
+        <StyledTrackName href={`/track/${id}`}>{name}</StyledTrackName>
 
-        <StyledArtistsWrapper>
-          {track.artists.map((artist, index) => (
-            <React.Fragment key={artist.id}>
-              <StyledArtistName href={`/artist/${artist.id}`}>
-                {artist.name}
-              </StyledArtistName>
-              {index !== track.artists.length - 1 && <span>, </span>}
-            </React.Fragment>
-          ))}
-        </StyledArtistsWrapper>
+        <StyledSubTitleWrapper>
+          {explicit && <StyledExplicit />}
+
+          <StyledArtistsWrapper>
+            {artists.map((artist, index) => (
+              <React.Fragment key={artist.id}>
+                <StyledArtistName href={`/artist/${artist.id}`}>
+                  {artist.name}
+                </StyledArtistName>
+                {index !== artists.length - 1 && <span>, </span>}
+              </React.Fragment>
+            ))}
+          </StyledArtistsWrapper>
+        </StyledSubTitleWrapper>
       </StyledTrackTitleWrapper>
     </StyledTrackInfo>
   )

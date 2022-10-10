@@ -1,10 +1,10 @@
-import React from 'react'
-import ActionPanel from '../../../core/ui/actionPanel/ActionPanel'
+import React, { FC } from 'react'
+import ActionPanel from '../../../../core/ui/actionPanel/ActionPanel'
 import { HeartFilled, HeartOutlined, RightOutlined } from '@ant-design/icons'
-import CircularButton from '../../../core/ui/button/CircularButton'
+import CircularButton from '../../../../core/ui/button/CircularButton'
 import styled from 'styled-components'
-import DefaultButton from '../../../core/ui/button/DefaultButton'
-import { usePlaylistFollow } from '../hook'
+import DefaultButton from '../../../../core/ui/button/DefaultButton'
+import { ICollectionActionPanelProps } from '../../interface'
 
 const StyledCircularButton = styled(CircularButton)`
   font-size: 24px;
@@ -20,9 +20,10 @@ const StyledFollowButton = styled(DefaultButton)<{ isFollowed?: boolean }>`
   }
 `
 
-const CollectionActionPanel = () => {
-  const { action, isFollowed } = usePlaylistFollow()
-
+const CollectionActionPanel: FC<ICollectionActionPanelProps> = ({
+  followAction,
+  isFollowed = false,
+}) => {
   return (
     <ActionPanel>
       <StyledCircularButton
@@ -35,7 +36,7 @@ const CollectionActionPanel = () => {
 
       <StyledFollowButton
         isFollowed={isFollowed}
-        onClick={action}
+        onClick={followAction}
       >
         {isFollowed ? <HeartFilled /> : <HeartOutlined />}
       </StyledFollowButton>

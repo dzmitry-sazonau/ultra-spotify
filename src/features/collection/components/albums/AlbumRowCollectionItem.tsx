@@ -5,7 +5,7 @@ import DynamicRowCollectionItem from '../dynamicRowCollection/DynamicRowCollecti
 const AlbumRowCollectionItem: FC<IAlbumRowCollectionItemProps> = ({ album }) => {
   return (
     <DynamicRowCollectionItem
-      link={`/playlist/${album.id}`}
+      link={`/album/${album.id}`}
       image={album.images[0].url}
       title={album.name}
       subtitle={album.artists.map((artist) => artist.name).join(',')}

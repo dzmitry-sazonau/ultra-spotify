@@ -18,7 +18,7 @@ export const api = createApi({
       return headers
     }
   }),
-  tagTypes: ['UserFollowing', 'PlaylistFollowing', 'TrackSaving'],
+  tagTypes: ['UserFollowing', 'PlaylistFollowing', 'TrackSaving', 'AlbumFollowing'],
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath]

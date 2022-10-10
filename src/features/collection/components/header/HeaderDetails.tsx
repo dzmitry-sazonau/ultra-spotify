@@ -17,7 +17,7 @@ const StyledDetailsItem = styled(DetailsItem)`
 const likes = 'likes'
 const songs = 'songs'
 
-const CollectionDetailsHeader: FC<ICollectionDetailsHeaderProps> = ({
+const HeaderDetails: FC<ICollectionDetailsHeaderProps> = ({
   name,
   tracks,
   followers,
@@ -26,14 +26,10 @@ const CollectionDetailsHeader: FC<ICollectionDetailsHeaderProps> = ({
   <>
     <StyledUserLink href={href}>{name}</StyledUserLink>
 
-    <StyledDetailsItem>
-      {followers} {likes}
-    </StyledDetailsItem>
+    {followers && <StyledDetailsItem>{followers} {likes}</StyledDetailsItem>}
 
-    <StyledDetailsItem>
-      {tracks} {songs}
-    </StyledDetailsItem>
+    <StyledDetailsItem>{tracks} {songs}</StyledDetailsItem>
   </>
 )
 
-export default CollectionDetailsHeader
+export default HeaderDetails

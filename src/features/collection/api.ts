@@ -1,13 +1,19 @@
 import { api } from '../../core/store/api'
 import {
+  IAlbum,
+  IArtist,
   IPlaylist,
+  IPlaylistWithShortTrack,
   IRequestCollectionParams,
-  IResponseAlbumsInfo,
+  IResponseAlbum,
+  IResponseCurrentUserAlbums,
+  IResponseAlbumTrackInfo,
+  IResponseArtistAlbum,
   IResponsePlaylist,
   IResponsePlaylistsInfo,
   IResponsePlaylistTrackInfo,
-} from './interface'
-import { IUser, TUserType } from '../user/interface'
+} from './entity'
+import { IUser } from '../user/interface'
 
 const collectionApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -23,7 +29,7 @@ const collectionApi = api.injectEndpoints({
       providesTags: ['PlaylistFollowing'],
     }),
     getCurrentUserAlbums: builder.query<
-      IResponseAlbumsInfo,
+      IResponseCurrentUserAlbums,
       IRequestCollectionParams
     >({
       query: (arg) => ({
@@ -53,6 +59,15 @@ const collectionApi = api.injectEndpoints({
         },
       }),
     }),
+    getAlbum: builder.query<IResponseAlbum, IAlbum['id']>({
+      query: (id) => ({
+        url: `/albums/${id}`,
+        method: 'GET',
+        params: {
+          market: 'BY',
+        },
+      }),
+    }),
     getPlaylistItems: builder.query<
       IResponsePlaylistTrackInfo,
       IRequestCollectionParams & { id: IPlaylist['id'] }
@@ -63,13 +78,23 @@ const collectionApi = api.injectEndpoints({
         params: { offset, limit, market: 'BY' },
       }),
     }),
+    getAlbumItems: builder.query<
+      IResponseAlbumTrackInfo,
+      IRequestCollectionParams & { id: IAlbum['id'] }
+    >({
+      query: ({ id, offset, limit }) => ({
+        url: `/albums/${id}/tracks`,
+        method: 'GET',
+        params: { offset, limit, market: 'BY' },
+      }),
+    }),
     checkUserSavedTracks: builder.query<boolean[], string[]>({
       query: (ids) => ({
         url: `/me/tracks/contains`,
         method: 'GET',
         params: { ids: ids.join(',') },
       }),
-      providesTags: ['TrackSaving']
+      providesTags: ['TrackSaving'],
     }),
     saveTracksForCurrentUser: builder.mutation<void, string[]>({
       query: (ids) => ({
@@ -107,6 +132,41 @@ const collectionApi = api.injectEndpoints({
         },
       }),
       invalidatesTags: ['PlaylistFollowing'],
+      onQueryStarted(id, { dispatch, queryFulfilled, getState }) {
+        const state = getState()
+
+        const checkUserFollowPlaylistResult = dispatch(
+          collectionApi.util.updateQueryData(
+            'checkUserFollowPlaylist',
+            // @ts-ignore
+            { ids: [state.user!.currentUser.id!], playlistId: id },
+            (draft) => {
+              Object.assign(draft, [true])
+            }
+          )
+        )
+
+        const { data: playlist } =
+          collectionApi.endpoints.getPlaylist.select(id)(state)
+
+        const getCurrentUserPlaylists = dispatch(
+          collectionApi.util.updateQueryData(
+            'getCurrentUserPlaylists',
+            { limit: 50, offset: 0 },
+            (draft) => {
+              draft.items.unshift({
+                id: playlist?.id!,
+                name: playlist?.name!,
+              } as IPlaylistWithShortTrack)
+            }
+          )
+        )
+
+        queryFulfilled.catch(() => {
+          checkUserFollowPlaylistResult.undo()
+          getCurrentUserPlaylists.undo()
+        })
+      },
     }),
     unfollowPlaylist: builder.mutation<void, string>({
       query: (id) => ({
@@ -114,6 +174,72 @@ const collectionApi = api.injectEndpoints({
         method: 'DELETE',
       }),
       invalidatesTags: ['PlaylistFollowing'],
+      onQueryStarted(id, { dispatch, queryFulfilled, getState }) {
+        const state = getState()
+
+        const checkUserFollowPlaylistResult = dispatch(
+          collectionApi.util.updateQueryData(
+            'checkUserFollowPlaylist',
+            // @ts-ignore
+            { ids: [state.user!.currentUser.id!], playlistId: id },
+            (draft) => {
+              Object.assign(draft, [false])
+            }
+          )
+        )
+
+        const getCurrentUserPlaylists = dispatch(
+          collectionApi.util.updateQueryData(
+            'getCurrentUserPlaylists',
+            { limit: 50, offset: 0 },
+            (draft) => {
+              draft.items = draft.items.filter((item) => item.id !== id)
+            }
+          )
+        )
+
+        queryFulfilled.catch(() => {
+          checkUserFollowPlaylistResult.undo()
+          getCurrentUserPlaylists.undo()
+        })
+      },
+    }),
+    checkUserFollowAlbum: builder.query<boolean[], string[]>({
+      query: (ids) => ({
+        url: `/me/albums/contains`,
+        method: 'GET',
+        params: { ids: ids.join(',') },
+      }),
+      providesTags: ['AlbumFollowing'],
+    }),
+    followAlbum: builder.mutation<void, string>({
+      query: (id) => ({
+        url: '/me/albums',
+        method: 'PUT',
+        params: { ids: [id] },
+      }),
+      invalidatesTags: ['AlbumFollowing'],
+    }),
+    unfollowAlbum: builder.mutation<void, string>({
+      query: (id) => ({
+        url: '/me/albums',
+        method: 'DELETE',
+        params: { ids: [id] },
+      }),
+      invalidatesTags: ['AlbumFollowing'],
+    }),
+    getArtistAlbums: builder.query<
+      IResponseArtistAlbum,
+      IRequestCollectionParams & { id: IArtist['id'] }
+    >({
+      query: ({ id, ...args }) => ({
+        url: `artists/${id}/albums`,
+        method: 'GET',
+        params: {
+          market: 'BY',
+          ...args,
+        },
+      }),
     }),
   }),
 })
@@ -130,6 +256,12 @@ export const {
   useCheckUserFollowPlaylistQuery,
   useFollowPlaylistMutation,
   useUnfollowPlaylistMutation,
+  useGetAlbumItemsQuery,
+  useGetAlbumQuery,
+  useCheckUserFollowAlbumQuery,
+  useFollowAlbumMutation,
+  useUnfollowAlbumMutation,
+  useGetArtistAlbumsQuery,
   util: { getRunningOperationPromises },
 } = collectionApi
 

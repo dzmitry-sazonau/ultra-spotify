@@ -5,7 +5,19 @@ import AlbumsRowCollection from './AlbumsRowCollection'
 
 const CurrentUserAlbumCollection = () => {
   const router = useRouter()
-  const { data } = useGetCurrentUserAlbumsQuery({ limit: 8, offset: 0 })
+  const { data } = useGetCurrentUserAlbumsQuery(
+    { limit: 8, offset: 0 },
+    {
+      selectFromResult: ({ data }) => ({
+        data: {
+          ...data,
+          items: data?.items.map(({ album }) => ({
+            ...album,
+          })),
+        },
+      }),
+    }
+  )
   const pushToAlbums = useCallback(() => router.push('/collection/albums'), [])
 
   return (

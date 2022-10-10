@@ -1,38 +1,13 @@
 import React, { FC } from 'react'
 import { Column } from 'react-table'
 import { StyledTableCell } from '../../../../core/ui/table/TableCell'
-import TrackInfo, { StyledArtistName } from './TrackInfo'
+import TrackInfo from './TrackInfo'
 import { format } from 'date-fns'
 import { FieldTimeOutlined } from '@ant-design/icons'
-import TrackControl, { StyledHeartWrapper } from './TrackControl'
+import TrackControl from './TrackControl'
 import Table from '../../../../core/ui/table/Table'
-import styled from 'styled-components'
-import Link from '../../../../core/ui/link/Link'
-import { textEllipsis } from '../../../../core/mixins'
-import { StyledTableBodyRow } from '../../../../core/ui/table/TableBodyRow'
-import { ITrackInfo } from '../../interface'
-
-const StyledAlbumName = styled(Link)`
-  && {
-    font-size: 14px;
-    font-weight: 500;
-    ${textEllipsis()}
-    color: #a7a7a7;
-  }
-`
-
-const StyledTableWrapper = styled.div`
-  ${StyledTableBodyRow} {
-    :hover {
-      ${StyledHeartWrapper} {
-        opacity: 1;
-      }
-      ${StyledArtistName}, ${StyledAlbumName} {
-        color: #ffffff;
-      }
-    }
-  }
-`
+import { ITrackInfo } from '../../entity'
+import TableWrapper, { StyledLink } from './TableWrapper'
 
 const columns: Column<any>[] = [
   {
@@ -46,7 +21,15 @@ const columns: Column<any>[] = [
     Header: 'TITLE',
     width: '6fr',
     accessor: 'track',
-    Cell: ({ value }) => <TrackInfo track={value} />,
+    Cell: ({ value }) => (
+      <TrackInfo
+        id={value.id}
+        explicit={value.explicit}
+        name={value.name}
+        artists={value.artists}
+        image={value.album.images[2]?.url || ''}
+      />
+    ),
   },
   {
     Header: 'ALBUM',
@@ -54,9 +37,9 @@ const columns: Column<any>[] = [
     width: '4fr',
     Cell: ({ value }) => (
       <StyledTableCell>
-        <StyledAlbumName href={`/album/${value.id}`}>
+        <StyledLink href={`/album/${value.id}`}>
           {value.name}
-        </StyledAlbumName>
+        </StyledLink>
       </StyledTableCell>
     ),
   },
@@ -71,8 +54,15 @@ const columns: Column<any>[] = [
   {
     id: 'last',
     Header: () => <FieldTimeOutlined />,
+    accessor: (original, index: number) => ({ original, index }),
     width: 'minmax(120px,1fr)',
-    Cell: (all) => <TrackControl trackInfo={all.row.original} />,
+    Cell: ({ value: { original: { track }, index } }) => (
+      <TrackControl
+        index={index}
+        id={track.id}
+        durationMs={track.duration_ms}
+      />
+    ),
   },
 ]
 
@@ -82,17 +72,19 @@ const dynamicHiddenColumns = {
   large: [],
 }
 
-const PlaylistTracksTable: FC<{ trackInfo: ITrackInfo[] }> = ({
-  trackInfo,
-}) => (
-  <StyledTableWrapper>
+const PlaylistTracksTable: FC<{
+  trackInfo: ITrackInfo[]
+  checkIsSavedTrack: (index: number) => boolean
+}> = ({ trackInfo, checkIsSavedTrack }) => (
+  <TableWrapper>
     <Table
       data={trackInfo}
       onRowClick={() => {}}
       columns={columns}
       dynamicHiddenColumns={dynamicHiddenColumns}
+      helper={checkIsSavedTrack}
     />
-  </StyledTableWrapper>
+  </TableWrapper>
 )
 
 export default PlaylistTracksTable
