@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
-import { IAlbumRowCollectionItemProps } from '../../interface'
+import { IAlbumsCollectionItemProps } from '../../interface'
 import DynamicRowCollectionItem from '../dynamicRowCollection/DynamicRowCollectionItem'
 
-const AlbumRowCollectionItem: FC<IAlbumRowCollectionItemProps> = ({ album }) => {
+const AlbumsCollectionItem: FC<IAlbumsCollectionItemProps> = ({ album }) => {
   return (
     <DynamicRowCollectionItem
       link={`/album/${album.id}`}
@@ -14,4 +14,4 @@ const AlbumRowCollectionItem: FC<IAlbumRowCollectionItemProps> = ({ album }) => 
   )
 }
 
-export default AlbumRowCollectionItem
+export default AlbumsCollectionItem

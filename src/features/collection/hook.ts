@@ -15,7 +15,7 @@ import { useAppSelector } from '../../core/store/hook'
 import { selectCurrentUser } from '../user/selector'
 
 export function useDynamicWidth() {
-  const [columCount, setColumCount] = useState(0)
+  const [columCount, setColumCount] = useState(8)
   const [gap, setGap] = useState(24)
   const ref = useRef<HTMLDivElement>(null)
 

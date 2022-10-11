@@ -16,6 +16,7 @@ interface ILink {
   title: string
   activeIcon: ReactNode
   inactiveIcon: ReactNode
+  childHref?: string
 }
 
 const listLinks: ILink[] = [
@@ -33,6 +34,7 @@ const listLinks: ILink[] = [
   },
   {
     href: '/collection',
+    childHref: '/playlists',
     title: 'Your Library',
     activeIcon: <RocketFilled />,
     inactiveIcon: <RocketOutlined />,
@@ -85,8 +87,8 @@ const NavLinks = () => {
 
   return (
     <StyledNavLinks>
-      {listLinks.map(({ href, title, activeIcon, inactiveIcon }) => (
-        <Link key={href} href={href}>
+      {listLinks.map(({ href, title, activeIcon, inactiveIcon, childHref = '' }) => (
+        <Link key={href} href={href + childHref}>
           <StyledWrapperLink>
             <StyledWrapperIcon>
               {href === asPath ? activeIcon : inactiveIcon}

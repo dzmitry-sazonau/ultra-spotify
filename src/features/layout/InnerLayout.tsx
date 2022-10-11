@@ -4,6 +4,7 @@ import { IReactChildren } from '../../core/interface'
 import Sidebar from '../sidebar/components'
 import MainHeader from '../header/components/MainHeader'
 import Player from '../player/components'
+import LibraryHeader from '../header/components/library/Header'
 
 const StyledInnerLayout = styled.div`
   height: 100%;
@@ -45,6 +46,15 @@ const InnerLayout: FC<IReactChildren> = ({ children }) => (
 
 export function getLayout(page: ReactElement) {
   return <InnerLayout>{page}</InnerLayout>
+}
+
+export function getLibraryLayout(page: ReactElement) {
+  return (
+    <InnerLayout>
+      <LibraryHeader />
+      {page}
+    </InnerLayout>
+  )
 }
 
 export default InnerLayout

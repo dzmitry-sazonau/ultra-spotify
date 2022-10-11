@@ -1,27 +1,15 @@
 import React, { useCallback } from 'react'
 import { useGetCurrentUserAlbumsQuery } from '../../api'
 import { useRouter } from 'next/router'
-import AlbumsRowCollection from './AlbumsRowCollection'
+import AlbumsCollection from './AlbumsCollection'
 
 const CurrentUserAlbumCollection = () => {
   const router = useRouter()
-  const { data } = useGetCurrentUserAlbumsQuery(
-    { limit: 8, offset: 0 },
-    {
-      selectFromResult: ({ data }) => ({
-        data: {
-          ...data,
-          items: data?.items.map(({ album }) => ({
-            ...album,
-          })),
-        },
-      }),
-    }
-  )
+  const { data } = useGetCurrentUserAlbumsQuery({ limit: 8, offset: 0 })
   const pushToAlbums = useCallback(() => router.push('/collection/albums'), [])
 
   return (
-    <AlbumsRowCollection
+    <AlbumsCollection
       title={'Your albums'}
       action={pushToAlbums}
       albums={data?.items!}

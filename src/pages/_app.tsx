@@ -7,6 +7,7 @@ import { parseCookies } from 'nookies'
 import { setAuthData } from '../features/auth/slice'
 import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
+import 'antd/dist/antd.css';
 
 const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar {

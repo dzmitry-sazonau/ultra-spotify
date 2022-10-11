@@ -11,7 +11,7 @@ import {
   IResponseArtistAlbum,
   IResponsePlaylist,
   IResponsePlaylistsInfo,
-  IResponsePlaylistTrackInfo,
+  IResponsePlaylistTrackInfo, IResponseCurrentUserAlbumsPrepared, IResponseFollowedArtists
 } from './entity'
 import { IUser } from '../user/interface'
 
@@ -29,7 +29,7 @@ const collectionApi = api.injectEndpoints({
       providesTags: ['PlaylistFollowing'],
     }),
     getCurrentUserAlbums: builder.query<
-      IResponseCurrentUserAlbums,
+      IResponseCurrentUserAlbumsPrepared,
       IRequestCollectionParams
     >({
       query: (arg) => ({
@@ -37,6 +37,25 @@ const collectionApi = api.injectEndpoints({
         method: 'GET',
         params: { ...arg },
       }),
+      transformResponse: (response: IResponseCurrentUserAlbums) => {
+        return {
+          ...response,
+          items: response?.items.map(({ album }) => ({
+            ...album,
+          })),
+        }
+      },
+    }),
+    getFollowedArtists: builder.query<
+      IResponseFollowedArtists,
+      IRequestCollectionParams['limit']
+      >({
+      query: (limit) => ({
+        url: '/me/following',
+        method: 'GET',
+        params: { type: 'artist', limit },
+      }),
+      providesTags: ['PlaylistFollowing'],
     }),
     getPlaylistByUserId: builder.query<
       IResponsePlaylistsInfo,
@@ -262,6 +281,7 @@ export const {
   useFollowAlbumMutation,
   useUnfollowAlbumMutation,
   useGetArtistAlbumsQuery,
+  useGetFollowedArtistsQuery,
   util: { getRunningOperationPromises },
 } = collectionApi
 

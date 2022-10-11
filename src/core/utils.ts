@@ -7,3 +7,5 @@ export const msToMinutesAndSeconds = (ms: number) => {
     minutes,
   }
 }
+
+export const getSplitPath = (path: string) => path.split('/').filter((path) => !!path)

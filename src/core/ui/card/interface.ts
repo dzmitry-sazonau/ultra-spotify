@@ -3,4 +3,5 @@ export interface TCardItemProps {
   subtitle: string
   image: string
   handleActionClick: () => void,
+  isRounded?: boolean
 }

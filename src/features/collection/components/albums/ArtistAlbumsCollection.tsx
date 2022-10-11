@@ -3,7 +3,7 @@ import { useGetArtistAlbumsQuery } from '../../api'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { selectArtistsByAlbumId } from '../../selector'
-import AlbumsRowCollection from './AlbumsRowCollection'
+import AlbumsCollection from './AlbumsCollection'
 
 const ArtistAlbumsCollection = () => {
   const { query, push } = useRouter();
@@ -22,7 +22,7 @@ const ArtistAlbumsCollection = () => {
   })
 
   return (
-    <AlbumsRowCollection
+    <AlbumsCollection
       title={`More by ${mainArtist?.name}`}
       action={pushToArtist}
       albums={data?.items!}

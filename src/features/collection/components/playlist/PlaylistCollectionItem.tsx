@@ -8,7 +8,7 @@ const PlaylistCollectionItem: FC<IPlaylistCollectionItemProps> = ({ playlist }) 
       link={`/playlist/${playlist.id}`}
       image={playlist.images[0]?.url}
       title={playlist.name}
-      subtitle={playlist.description || playlist.owner.display_name}
+      subtitle={(playlist.description[0] === '<' || !playlist.description) ? playlist.owner.display_name : playlist.description}
       handleActionClick={() => {}}
     />
   )

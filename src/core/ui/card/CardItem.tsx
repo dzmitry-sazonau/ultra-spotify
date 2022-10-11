@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react'
 import { TCardItemProps } from './interface'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import CircularButton from '../button/CircularButton'
 import { PlayCircleOutlined } from '@ant-design/icons'
 
@@ -13,6 +13,7 @@ const StyledButtonWrapper = styled.div`
   box-shadow: 0 8px 8px rgb(0 0 0 / 30%);
   transition: all 0.3s ease;
   border-radius: 500px;
+  color: #000000;
   transform: translateY(8px);
 `
 
@@ -41,14 +42,6 @@ const StyledHeaderWrapper = styled.div`
   position: relative;
 `
 
-const StyledImageWrapper = styled.div`
-  width: 100%;
-  padding-bottom: 100%;
-  box-shadow: 0 8px 24px rgb(0 0 0 / 50%);
-  background-color: #333333;
-  position: relative;
-`
-
 const StyledImg = styled.img`
   display: block;
   height: 100%;
@@ -62,6 +55,22 @@ const StyledImg = styled.img`
   width: 100%;
   object-fit: cover;
   object-position: center center;
+`
+
+const StyledImageWrapper = styled.div<{ isRounded: boolean }>`
+  width: 100%;
+  padding-bottom: 100%;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 50%);
+  background-color: #333333;
+  position: relative;
+
+  ${(props) =>
+    props.isRounded && css`
+      border-radius: 50%;
+      ${StyledImg} {
+        border-radius: 50%;
+      }
+    `}
 `
 
 const StyledTextWrapper = styled.div`
@@ -98,11 +107,12 @@ const CardItem: FC<TCardItemProps> = ({
   image,
   subtitle,
   handleActionClick,
+  isRounded = false,
 }) => {
   return (
     <StyledCard>
       <StyledHeaderWrapper>
-        <StyledImageWrapper>
+        <StyledImageWrapper isRounded={isRounded}>
           <StyledImg src={image} />
         </StyledImageWrapper>
         <StyledButtonWrapper>

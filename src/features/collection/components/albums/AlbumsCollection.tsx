@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import DynamicRowCollection from '../dynamicRowCollection/DynamicRowCollection'
-import AlbumRowCollectionItem from './AlbumRowCollectionItem'
-import { IAlbumsRowCollectionProps } from '../../interface'
+import AlbumsCollectionItem from './AlbumsCollectionItem'
+import { IAlbumsCollectionProps } from '../../interface'
 
-const AlbumsRowCollection: FC<IAlbumsRowCollectionProps> = ({
+const AlbumsCollection: FC<IAlbumsCollectionProps> = ({
   albums,
   action,
   title,
@@ -16,7 +16,7 @@ const AlbumsRowCollection: FC<IAlbumsRowCollectionProps> = ({
     data={albums}
   >
     {(props) => props?.map((album) => (
-      <AlbumRowCollectionItem
+      <AlbumsCollectionItem
         key={album.id}
         album={album}
       />
@@ -24,4 +24,4 @@ const AlbumsRowCollection: FC<IAlbumsRowCollectionProps> = ({
   </DynamicRowCollection>
 )
 
-export default AlbumsRowCollection
+export default AlbumsCollection

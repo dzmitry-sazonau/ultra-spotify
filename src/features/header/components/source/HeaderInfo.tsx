@@ -32,6 +32,7 @@ const StyledNameWrapper = styled.span`
 const StyledName = styled.h2`
   font-size: 96px;
   font-weight: 700;
+  color: #ffffff;
   margin: 0 0 12px 0;
 `
 

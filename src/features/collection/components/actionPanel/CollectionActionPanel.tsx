@@ -9,6 +9,7 @@ import { ICollectionActionPanelProps } from '../../interface'
 const StyledCircularButton = styled(CircularButton)`
   font-size: 24px;
   margin-right: 32px;
+  color: #000000;
 `
 
 const StyledFollowButton = styled(DefaultButton)<{ isFollowed?: boolean }>`

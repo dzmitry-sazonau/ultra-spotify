@@ -1,4 +1,11 @@
-import { IAlbum, IArtist, ICurrentUserAlbumsItem, IIsFullView, IPlaylistWithShortTrack } from './entity'
+import {
+  IAlbum,
+  IArtist,
+  ICurrentUserAlbumsItem,
+  IArtistInfo,
+  IIsFullView,
+  IPlaylistWithShortTrack
+} from './entity'
 import { ReactNode } from 'react'
 
 export interface ITrackInfoProps {
@@ -15,12 +22,20 @@ export interface ITrackControlProps {
   durationMs: number
 }
 
-export interface IAlbumRowCollectionItemProps {
+export interface IAlbumsCollectionItemProps {
   album: IAlbum
 }
 
-export interface IAlbumsRowCollectionProps extends IIsFullView, ICollectionTitleProps{
+export interface IAlbumsCollectionProps extends IIsFullView, ICollectionTitleProps {
   albums: IAlbum[]
+}
+
+export interface IArtistsCollectionProps extends IIsFullView, ICollectionTitleProps {
+  artists: IArtistInfo[]
+}
+
+export interface IArtistsCollectionItemProps {
+  artist: IArtistInfo
 }
 
 export interface IPlaylistCollectionItemProps {
@@ -33,6 +48,7 @@ export interface IDynamicCollectionItemProps {
   image: string
   link: string
   handleActionClick: () => void
+  isImageRounded?: boolean
 }
 
 export interface IPlaylistsCollectionProps extends IIsFullView, ICollectionTitleProps {

@@ -9,6 +9,7 @@ const DynamicRowCollectionItem: FC<IDynamicCollectionItemProps> = ({
   subtitle,
   title,
   handleActionClick,
+  isImageRounded
 }) => {
   return (
     <Link passHref href={link}>
@@ -17,6 +18,7 @@ const DynamicRowCollectionItem: FC<IDynamicCollectionItemProps> = ({
           title={title}
           subtitle={subtitle}
           image={image}
+          isRounded={isImageRounded}
           handleActionClick={handleActionClick}
         />
       </div>

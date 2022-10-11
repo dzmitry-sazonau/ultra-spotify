@@ -1,11 +1,16 @@
 import React from 'react'
 import { NextPageWithLayout } from '../_app'
-import { getLayout } from '../../features/layout/InnerLayout'
+import { getLibraryLayout } from '../../features/layout/InnerLayout'
+import ListCollectionWrapper from '../../features/collection/components/ListCollectionWrapper'
+import CurrentUserPlaylistFullViewCollection
+  from '../../features/collection/components/playlist/CurrentUserPlaylistFullViewCollection'
 
 const Playlists: NextPageWithLayout = () => (
-  <div>Playlists</div>
+  <ListCollectionWrapper>
+    <CurrentUserPlaylistFullViewCollection />
+  </ListCollectionWrapper>
 )
 
-Playlists.getLayout = getLayout
+Playlists.getLayout = getLibraryLayout
 
 export default Playlists

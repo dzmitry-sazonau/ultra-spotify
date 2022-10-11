@@ -43,7 +43,6 @@ export interface IPlaylistWithShortTrack extends IPlaylist {
   tracks: ITracksShort
 }
 
-
 export interface IExternalUrls {
   spotify: string;
 }
@@ -55,6 +54,19 @@ export interface IArtist {
   name: string;
   type: string;
   uri: string;
+}
+
+export interface IArtistInfo extends IArtist {
+  followers: IFollowers;
+  genres: string[];
+  images: IImage[];
+  popularity: number;
+}
+
+export interface IResponseFollowedArtists {
+  artists: {
+    items: IArtistInfo[]
+  } & IRequestCollectionParams & IResponseCollectionParams
 }
 
 export interface IExternalIds {
@@ -105,6 +117,10 @@ export interface IResponsePlaylistsInfo extends IRequestCollectionParams, IRespo
 
 export interface IResponseCurrentUserAlbums extends IRequestCollectionParams, IResponseCollectionParams {
   items: ICurrentUserAlbumsItem[]
+}
+
+export interface IResponseCurrentUserAlbumsPrepared extends Omit<IResponseCurrentUserAlbums, 'items'> {
+  items: IAlbumCurrentUser[]
 }
 
 export interface ICurrentUserAlbumsItem {
