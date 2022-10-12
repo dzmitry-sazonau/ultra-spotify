@@ -3,8 +3,7 @@ import { NextPageWithLayout } from '../_app'
 import styled from 'styled-components'
 import PlaylistTracksCollection from '../../features/collection/components/tracks/PlaylistTracksCollection'
 import PlaylistCollectionHeader from '../../features/collection/components/header/PlaylistCollectionHeader'
-import PlaylistCollectionActionPanel
-  from '../../features/collection/components/actionPanel/PlaylistCollectionActionPanel'
+import PlaylistCollectionActionPanel from '../../features/collection/components/actionPanel/PlaylistCollectionActionPanel'
 
 const StyledPlaylist = styled.div`
   padding-bottom: 24px;

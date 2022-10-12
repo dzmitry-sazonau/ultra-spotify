@@ -8,6 +8,7 @@ import { setAuthData } from '../features/auth/slice'
 import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
 import 'antd/dist/antd.css';
+import { getCurrentUserPlaylists } from '../features/collection/api'
 
 const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar {
@@ -89,6 +90,7 @@ App.getInitialProps = wrapper.getInitialAppProps((store) => async (context) => {
     const authData = JSON.parse(token)
 
     store.dispatch(setAuthData(authData))
+    await store.dispatch(getCurrentUserPlaylists.initiate({ offset: 0, limit: 50 })).unwrap()
 
     const data = await store.dispatch(getCurrentUserProfile.initiate()).unwrap()
 

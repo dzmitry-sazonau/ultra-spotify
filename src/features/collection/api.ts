@@ -285,7 +285,7 @@ export const {
   util: { getRunningOperationPromises },
 } = collectionApi
 
-export const { getCurrentUserPlaylists, getCurrentUserAlbums } =
+export const { getCurrentUserPlaylists } =
   collectionApi.endpoints
 
 export default collectionApi
