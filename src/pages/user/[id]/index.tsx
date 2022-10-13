@@ -1,18 +1,18 @@
 import { getLayout } from '../../../features/layout/InnerLayout'
 import { NextPageWithLayout } from '../../_app'
-import HeaderProfile from '../../../features/user/components/HeaderProfile'
-import ListCollectionWrapper from '../../../features/collection/components/ListCollectionWrapper'
-import UserPlaylistsCollection from '../../../features/collection/components/playlist/UserPlaylistsCollection'
-import UserActionPanel from '../../../features/user/components/actionPanel/UserActionPanel'
+import UserPlaylists from '../../../features/playlist/components/UserPlaylists'
+import ListCollectionWrapper from '../../../core/ui/collection/ListCollectionWrapper'
+import UserActionPanel from '../../../features/client/components/user/UserActionPanel'
+import UserHeaderProfile from '../../../features/client/components/user/UserHeaderProfile'
 
 const id = 'dullbat8'
 
 const User: NextPageWithLayout = () => (
   <>
-    <HeaderProfile />
-    <UserActionPanel />
+    <UserHeaderProfile />
+    <UserActionPanel clientType="user" />
     <ListCollectionWrapper>
-      <UserPlaylistsCollection />
+      <UserPlaylists />
     </ListCollectionWrapper>
   </>
 )

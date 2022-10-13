@@ -1,14 +1,14 @@
 import NextApp, { AppProps } from 'next/app'
 import { createGlobalStyle } from 'styled-components'
 import { wrapper } from '../core/store'
-import { getCurrentUserProfile } from '../features/user/api'
-import { setCurrentUser } from '../features/user/slice'
+import { getCurrentUserProfile } from '../features/client/api'
+import { setCurrentUser } from '../features/client/slice'
 import { parseCookies } from 'nookies'
 import { setAuthData } from '../features/auth/slice'
 import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
 import 'antd/dist/antd.css';
-import { getCurrentUserPlaylists } from '../features/collection/api'
+import { getCurrentUserPlaylists } from '../features/playlist/api'
 
 const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar {

@@ -2,12 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { NextPageWithLayout } from '../_app'
 import { getLayout } from '../../features/layout/InnerLayout'
-import AlbumTracksCollection from '../../features/collection/components/tracks/AlbumTracksCollection'
-import AlbumCollectionHeader from '../../features/collection/components/header/AlbumCollectionHeader'
-import AlbumCollectionActionPanel from '../../features/collection/components/actionPanel/AlbumCollectionActionPanel'
-import AlbumCopyrights from '../../features/collection/components/albums/AlbumCopyrights'
-import ListCollectionWrapper from '../../features/collection/components/ListCollectionWrapper'
-import ArtistAlbumsCollection from '../../features/collection/components/albums/ArtistAlbumsCollection'
+import TracksAlbum from '../../features/track/components/TracksAlbum'
+import AlbumHeader from '../../features/album/components/AlbumHeader'
+import AlbumActionPanel from '../../features/album/components/AlbumActionPanel'
+import AlbumCopyrights from '../../features/album/components/AlbumCopyrights'
+import ListCollectionWrapper from '../../core/ui/collection/ListCollectionWrapper'
+import ArtistAlbums from '../../features/album/components/ArtistAlbums'
 
 const StyledPlaylist = styled.div`
   padding-bottom: 24px;
@@ -16,16 +16,16 @@ const StyledPlaylist = styled.div`
 
 const Album: NextPageWithLayout = () => (
   <StyledPlaylist>
-    <AlbumCollectionHeader />
+    <AlbumHeader />
 
-    <AlbumCollectionActionPanel />
+    <AlbumActionPanel />
 
-    <AlbumTracksCollection />
+    <TracksAlbum />
 
     <AlbumCopyrights />
 
     <ListCollectionWrapper paddingTop>
-      <ArtistAlbumsCollection />
+      <ArtistAlbums />
     </ListCollectionWrapper>
   </StyledPlaylist>
 );

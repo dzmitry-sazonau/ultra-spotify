@@ -1,13 +1,13 @@
 import { NextPageWithLayout } from './_app'
 import { getLayout } from '../features/layout/InnerLayout'
-import ListCollectionWrapper from '../features/collection/components/ListCollectionWrapper'
-import CurrentUserPlaylistsCollection from '../features/collection/components/playlist/CurrentUserPlaylistsCollection'
-import CurrentUserAlbumsCollection from '../features/collection/components/albums/CurrentUserAlbumsCollection'
+import CurrentUserPlaylists from '../features/playlist/components/CurrentUserPlaylists'
+import CurrentUserAlbums from '../features/album/components/CurrentUserAlbums'
+import ListCollectionWrapper from '../core/ui/collection/ListCollectionWrapper'
 
 const Home: NextPageWithLayout = () => (
   <ListCollectionWrapper paddingTop>
-    <CurrentUserPlaylistsCollection />
-    <CurrentUserAlbumsCollection />
+    <CurrentUserPlaylists />
+    <CurrentUserAlbums />
   </ListCollectionWrapper>
 )
 

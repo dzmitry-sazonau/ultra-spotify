@@ -1,9 +1,9 @@
 import { getLayout } from '../../features/layout/InnerLayout'
 import { NextPageWithLayout } from '../_app'
 import styled from 'styled-components'
-import PlaylistTracksCollection from '../../features/collection/components/tracks/PlaylistTracksCollection'
-import PlaylistCollectionHeader from '../../features/collection/components/header/PlaylistCollectionHeader'
-import PlaylistCollectionActionPanel from '../../features/collection/components/actionPanel/PlaylistCollectionActionPanel'
+import TracksPlaylist from '../../features/track/components/TracksPlaylist'
+import PlaylistHeader from '../../features/playlist/components/PlaylistHeader'
+import PlaylistActionPanel from '../../features/playlist/components/PlaylistActionPanel'
 
 const StyledPlaylist = styled.div`
   padding-bottom: 24px;
@@ -13,9 +13,9 @@ const StyledPlaylist = styled.div`
 const Playlist: NextPageWithLayout = () => {
   return (
     <StyledPlaylist>
-      <PlaylistCollectionHeader />
-      <PlaylistCollectionActionPanel />
-      <PlaylistTracksCollection />
+      <PlaylistHeader />
+      <PlaylistActionPanel />
+      <TracksPlaylist />
     </StyledPlaylist>
   )
 }

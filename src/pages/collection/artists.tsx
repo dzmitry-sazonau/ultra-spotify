@@ -1,12 +1,12 @@
 import React from 'react'
 import { NextPageWithLayout } from '../_app'
 import { getLibraryLayout } from '../../features/layout/InnerLayout'
-import ListCollectionWrapper from '../../features/collection/components/ListCollectionWrapper'
-import CurrentUserFollowedArtistsFullViewCollection from '../../features/collection/components/artists/CurrentUserFollowedArtistsFullViewCollection'
+import FollowedArtistsFullView from '../../features/client/components/artist/FollowedArtistsFullView'
+import ListCollectionWrapper from '../../core/ui/collection/ListCollectionWrapper'
 
 const Collection: NextPageWithLayout = () => (
   <ListCollectionWrapper>
-    <CurrentUserFollowedArtistsFullViewCollection />
+    <FollowedArtistsFullView />
   </ListCollectionWrapper>
 )
 

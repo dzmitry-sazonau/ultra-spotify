@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import HistoryActions from '../../history/components/HistoryActions'
-import UserWidget from '../../user/components/UserWidget'
+import UserWidget from '../../client/components/user/UserWidget'
 import {
   useAttachedEventsForRouter,
   useInitializeHistory,

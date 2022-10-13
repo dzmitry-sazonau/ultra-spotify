@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGetCurrentUserPlaylistsQuery } from '../../../collection/api'
+import { useGetCurrentUserPlaylistsQuery } from '../../../playlist/api'
 import styled from 'styled-components'
 import LinksToPlaylistItem from './LinksToPlaylistItem'
 

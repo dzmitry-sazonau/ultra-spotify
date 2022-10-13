@@ -1,7 +1,7 @@
 import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit'
 import { createWrapper, Context } from 'next-redux-wrapper'
 import { api } from './api'
-import user from '../../features/user/slice'
+import user from '../../features/client/slice'
 import auth from '../../features/auth/slice'
 import history from '../../features/history/slice'
 

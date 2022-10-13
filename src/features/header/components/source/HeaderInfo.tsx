@@ -55,6 +55,7 @@ export const DetailsItem = styled.span`
   font-weight: 500;
   color: #ffffff;
   white-space: nowrap;
+  ${dotBeforeElement()}
 `
 
 const HeaderInfo: FC<IHeaderInfoProps> = ({
