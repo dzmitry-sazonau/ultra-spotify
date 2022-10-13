@@ -5,7 +5,7 @@ import CurrentUserPlaylistsCollection from '../features/collection/components/pl
 import CurrentUserAlbumsCollection from '../features/collection/components/albums/CurrentUserAlbumsCollection'
 
 const Home: NextPageWithLayout = () => (
-  <ListCollectionWrapper>
+  <ListCollectionWrapper paddingTop>
     <CurrentUserPlaylistsCollection />
     <CurrentUserAlbumsCollection />
   </ListCollectionWrapper>

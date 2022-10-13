@@ -1,9 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit'
 import { createWrapper, Context } from 'next-redux-wrapper'
 import { api } from './api'
 import user from '../../features/user/slice'
 import auth from '../../features/auth/slice'
 import history from '../../features/history/slice'
+
+const listenerMiddleware = createListenerMiddleware()
 
 export const makeStore = (ctx: Context) =>
   configureStore({
@@ -19,7 +21,7 @@ export const makeStore = (ctx: Context) =>
           extraArgument: ctx,
         },
         serializableCheck: false,
-      }).concat(api.middleware),
+      }).concat(api.middleware).prepend(listenerMiddleware.middleware),
   })
 
 export type RootStore = ReturnType<typeof makeStore>

@@ -17,7 +17,6 @@ const history = createSlice({
     updateHistory(state, action: PayloadAction<string>) {
       state.currentRoute = state.routerHistory.length
       state.routerHistory = [...state.routerHistory, action.payload]
-
     },
     increment(state) {
       state.currentRoute = ++state.currentRoute

@@ -1,13 +1,14 @@
 import { useRouter } from 'next/router'
 import { useAppDispatch, useAppSelector } from '../../core/store/hook'
 import {
-  selectBackRoute, selectCurrentRoute,
+  selectBackRoute,
   selectForwardRoute,
   selectIsDisabledBackButton,
-  selectIsDisabledForwardButton, selectRouterHistoryLength
+  selectIsDisabledForwardButton,
 } from './selectors'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { decrement, increment, initialize, updateHistory } from './slice'
+import { addListener, clearAllListeners, isAnyOf } from '@reduxjs/toolkit'
 
 export function useHistory() {
   const router = useRouter()
@@ -20,7 +21,6 @@ export function useHistory() {
 
   const handleGoBack = useCallback(() => {
     dispatch(decrement())
- 
     router.push(backRoute)
   }, [dispatch, router, backRoute])
 
@@ -49,22 +49,13 @@ export function useInitializeHistory() {
 export function useAttachedEventsForRouter() {
   const router = useRouter()
   const [isUpdateHistory, setIsUpdateHistory] = useState(true)
-  const currentRoute = useAppSelector(selectCurrentRoute)
-  const routerHistoryLength =  useAppSelector(selectRouterHistoryLength)
   const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    setIsUpdateHistory(false)
-  }, [currentRoute])
-
-  useEffect(() => {
-    setIsUpdateHistory(true)
-  }, [routerHistoryLength])
 
   const routeChangeComplete = (url: string) => {
     if (isUpdateHistory) {
       dispatch(updateHistory(url))
     }
+    setIsUpdateHistory(true)
   }
 
   useEffect(() => {
@@ -74,4 +65,15 @@ export function useAttachedEventsForRouter() {
       router.events.off('routeChangeComplete', routeChangeComplete)
     }
   }, [routeChangeComplete])
+
+  useEffect(() => {
+    dispatch(addListener({
+      matcher: isAnyOf(increment, decrement),
+      effect: () => setIsUpdateHistory(false)
+    }))
+
+    return () => {
+      dispatch(clearAllListeners())
+    }
+  }, [])
 }

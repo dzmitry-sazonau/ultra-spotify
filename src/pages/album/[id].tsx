@@ -24,7 +24,7 @@ const Album: NextPageWithLayout = () => (
 
     <AlbumCopyrights />
 
-    <ListCollectionWrapper>
+    <ListCollectionWrapper paddingTop>
       <ArtistAlbumsCollection />
     </ListCollectionWrapper>
   </StyledPlaylist>
