@@ -1,7 +1,7 @@
 import { api } from '../../core/store/api'
 import {
   IResponseAlbumTrackInfo,
-  IResponsePlaylistTrackInfo,
+  IResponsePlaylistTrackInfo, ITrackFull
 } from './entity'
 import { IRequestCollectionParams } from '../../core/entity'
 import { IAlbum } from '../album/entity'
@@ -27,6 +27,13 @@ const trackApi = api.injectEndpoints({
         url: `/albums/${id}/tracks`,
         method: 'GET',
         params: { offset, limit, market: 'BY' },
+      }),
+    }),
+    getTrackById: builder.query<ITrackFull, string>({
+      query: (id) => ({
+        url: `/tracks/${id}`,
+        method: 'GET',
+        params: { market: 'BY' }
       }),
     }),
     checkUserSavedTracks: builder.query<boolean[], string[]>({
@@ -57,6 +64,7 @@ const trackApi = api.injectEndpoints({
 })
 
 export const {
+  useGetTrackByIdQuery,
   useGetPlaylistItemsQuery,
   useCheckUserSavedTracksQuery,
   useSaveTracksForCurrentUserMutation,

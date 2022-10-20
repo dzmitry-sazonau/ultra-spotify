@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { IHeaderInfoProps } from '../../interface'
 import styled from 'styled-components'
-import { dotBeforeElement } from '../../../../core/mixins'
+import { dotBeforeElement, textEllipsis } from '../../../../core/mixins'
 
 const StyledHeaderInfo = styled.div`
   display: flex;
@@ -30,7 +30,7 @@ const StyledNameWrapper = styled.span`
 `
 
 const StyledName = styled.h2`
-  font-size: 96px;
+  font-size: 3.5vw;
   font-weight: 700;
   color: #ffffff;
   margin: 0 0 12px 0;

@@ -26,7 +26,7 @@ export interface ITrack {
   uri: string
 }
 
-export interface IPlaylistTrack extends ITrack {
+export interface ITrackFull extends ITrack {
   album: IAlbum
   episode: boolean
   external_ids: IExternalIds
@@ -39,7 +39,7 @@ export interface ITrackInfo {
   added_by: IAddedBy
   is_local: boolean
   primary_color?: any
-  track: IPlaylistTrack
+  track: ITrackFull
   video_thumbnail: IVideoThumbnail
 }
 

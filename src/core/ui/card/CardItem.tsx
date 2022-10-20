@@ -3,6 +3,8 @@ import { TCardItemProps } from './interface'
 import styled, { css } from 'styled-components'
 import CircularButton from '../button/CircularButton'
 import { PlayCircleOutlined } from '@ant-design/icons'
+import { FaPlay } from 'react-icons/fa'
+import PlayIcon from '../icon/Play'
 
 const StyledButtonWrapper = styled.div`
   opacity: 0;
@@ -102,6 +104,19 @@ const StyledSubtitle = styled.span`
   margin-top: 4px;
 `
 
+const StyledCircularButton = styled(CircularButton)`
+  && {
+    height: 48px;
+    width: 48px;
+    background-color: #1CDF63;
+
+    ${PlayIcon} {
+      height: 16px;
+      width: 16px;
+    }
+  }
+`
+
 const CardItem: FC<TCardItemProps> = ({
   title,
   image,
@@ -115,14 +130,13 @@ const CardItem: FC<TCardItemProps> = ({
         <StyledImageWrapper isRounded={isRounded}>
           <StyledImg src={image} />
         </StyledImageWrapper>
+
         <StyledButtonWrapper>
-          <CircularButton
-            size="l"
+          <StyledCircularButton
             onClick={handleActionClick}
-            color="primary"
           >
-            <PlayCircleOutlined />
-          </CircularButton>
+            <PlayIcon />
+          </StyledCircularButton>
         </StyledButtonWrapper>
       </StyledHeaderWrapper>
 

@@ -1,0 +1,1 @@
+export type TRepeatModeState = 'track' | 'context' | 'off'

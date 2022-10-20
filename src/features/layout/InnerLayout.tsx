@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { IReactChildren } from '../../core/interface'
 import Sidebar from '../sidebar/components'
 import MainHeader from '../header/components/MainHeader'
-import Player from '../player/components'
+import Player from '../player/components/Player'
 import LibraryHeader from '../header/components/library/Header'
 
 const StyledInnerLayout = styled.div`

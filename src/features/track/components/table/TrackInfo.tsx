@@ -4,7 +4,9 @@ import Link from '../../../../core/ui/link/Link'
 import { textEllipsis } from '../../../../core/mixins'
 import { StyledTableCell } from '../../../../core/ui/table/TableCell'
 import Explicit from '../../../../core/ui/Explicit'
-import { IArtist } from '../../../playlist/entity'
+import { IArtist } from '../../../client/entity'
+import TrackName from '../TrackName'
+import TrackArtists from '../TrackArtists'
 
 export interface IProps {
   image?: string
@@ -43,28 +45,6 @@ const StyledTrackTitleWrapper = styled.div`
   padding-right: 8px;
 `
 
-const StyledTrackName = styled(Link)`
-  && {
-    align-self: start;
-    font-size: 16px;
-    font-weight: 500;
-    ${textEllipsis()}
-  }
-`
-
-const StyledArtistsWrapper = styled.span`
-  ${textEllipsis()}
-`
-
-export const StyledArtistName = styled(Link)`
-  && {
-    font-size: 14px;
-    font-weight: 400;
-    color: #b3b3b3;
-    line-height: 22.4px;
-  }
-`
-
 const StyledExplicit = styled(Explicit)`
   && {
     margin-right: 8px;
@@ -77,23 +57,11 @@ const TrackInfo: FC<IProps> = ({ name, artists, image, id, explicit }) => {
       {image && <StyledTrackImage src={image} />}
 
       <StyledTrackTitleWrapper>
-        <StyledTrackName href={`/track/${id}`}>{name}</StyledTrackName>
+        <TrackName id={id} name={name} />
 
         <StyledSubTitleWrapper>
           {explicit && <StyledExplicit />}
-
-          <StyledArtistsWrapper>
-            {artists.map((artist, index) => (
-              <React.Fragment key={artist.id}>
-                <StyledArtistName href={`/artist/${artist.id}`}>
-                  {artist.name}
-                </StyledArtistName>
-
-                {index !== artists.length - 1 && <span>, </span>}
-              </React.Fragment>
-            ))}
-          </StyledArtistsWrapper>
-
+          <TrackArtists artists={artists} />
         </StyledSubTitleWrapper>
 
       </StyledTrackTitleWrapper>

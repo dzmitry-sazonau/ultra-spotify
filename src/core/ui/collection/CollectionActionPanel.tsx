@@ -4,6 +4,9 @@ import { HeartFilled, HeartOutlined, RightOutlined } from '@ant-design/icons'
 import CircularButton from '../button/CircularButton'
 import styled from 'styled-components'
 import DefaultButton from '../button/DefaultButton'
+import IconButton from '../button/IconButton'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
+import PlayIcon from '../icon/Play'
 
 export interface IProps {
   isFollowed?: boolean
@@ -11,17 +14,15 @@ export interface IProps {
 }
 
 const StyledCircularButton = styled(CircularButton)`
-  font-size: 24px;
+  height: 56px;
+  width: 56px;
   margin-right: 32px;
   color: #000000;
-`
+  background-color: #1CDF63;
 
-const StyledFollowButton = styled(DefaultButton)<{ isFollowed?: boolean }>`
-  color: ${(props) => (props.isFollowed ? '#1ed760' : 'hsla(0,0%,100%,.7)')};
-  font-size: 32px;
-
-  :hover {
-    color: ${(props) => (props.isFollowed ? '#1ed760' : '#ffffff')};
+  ${PlayIcon} {
+    height: 20px;
+    width: 20px;
   }
 `
 
@@ -32,19 +33,19 @@ const CollectionActionPanel: FC<IProps> = ({
   return (
     <ActionPanel>
       <StyledCircularButton
-        size="xl"
         onClick={() => {}}
-        color="primary"
       >
-        <RightOutlined />
+        <PlayIcon />
       </StyledCircularButton>
 
-      <StyledFollowButton
-        isFollowed={isFollowed}
+      <IconButton
+        height={32}
+        width={32}
+        isActive={isFollowed}
         onClick={followAction}
       >
-        {isFollowed ? <HeartFilled /> : <HeartOutlined />}
-      </StyledFollowButton>
+        {isFollowed ? <FaHeart /> : <FaRegHeart />}
+      </IconButton>
     </ActionPanel>
   )
 }

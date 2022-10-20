@@ -4,10 +4,17 @@ import { TClientType } from '../../entity'
 import { useFollowing } from '../../hook'
 import StyledActionPanel from '../../../../core/ui/actionPanel/ActionPanel'
 import { IReactChildren } from '../../../../core/interface'
+import styled from 'styled-components'
 
 export interface IProps extends IReactChildren {
   clientType: TClientType
 }
+
+const StyledOutlinedButton = styled(OutlinedButton)`
+  && {
+    height: 32px;
+  }
+`
 
 const UserActionPanel: FC<IProps> = ({ clientType, children }) => {
   const { isFollow, action } = useFollowing(clientType)
@@ -15,12 +22,11 @@ const UserActionPanel: FC<IProps> = ({ clientType, children }) => {
   return (
     <StyledActionPanel>
       {children}
-      <OutlinedButton
-        size="s"
+      <StyledOutlinedButton
         onClick={action}
       >
         {isFollow ? 'Following' : 'Follow'}
-      </OutlinedButton>
+      </StyledOutlinedButton>
     </StyledActionPanel>
   )
 }

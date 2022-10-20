@@ -7,7 +7,7 @@ import {
   IResponseCurrentUserAlbumsPrepared
 } from './entity'
 import { IRequestCollectionParams } from '../../core/entity'
-import { IArtist } from '../playlist/entity'
+import { IArtist } from '../client/entity'
 
 const albumApi = api.injectEndpoints({
   endpoints: (builder) => ({

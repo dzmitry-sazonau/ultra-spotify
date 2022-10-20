@@ -9,28 +9,32 @@ const StyledHistoryActions = styled.div`
   gap: 16px;
 `
 
+const StyledCircularButton = styled(CircularButton)`
+  height: 32px;
+  width: 32px;
+  
+  background-color: #484848;
+  color: #ffffff;
+`
+
 const HistoryActions: FC = () => {
   const { isDisabledBack, isDisabledForward, back, forward } = useHistory()
 
   return (
     <StyledHistoryActions>
-      <CircularButton
+      <StyledCircularButton
         disabled={isDisabledBack}
         onClick={back}
-        color="second"
-        size="s"
       >
         <LeftOutlined />
-      </CircularButton>
+      </StyledCircularButton>
 
-      <CircularButton
+      <StyledCircularButton
         disabled={isDisabledForward}
         onClick={forward}
-        color="second"
-        size="s"
       >
         <RightOutlined />
-      </CircularButton>
+      </StyledCircularButton>
     </StyledHistoryActions>
   )
 }
