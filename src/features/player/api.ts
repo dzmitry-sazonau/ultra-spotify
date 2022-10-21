@@ -6,9 +6,20 @@ export interface ITransferPlaybackRequest {
   play?: boolean
 }
 
-export interface ITogglePlaybackShuffleRequest {
-  state: boolean
+export interface IDeviceId {
   device_id: string
+}
+
+export interface ITogglePlaybackShuffleRequest extends IDeviceId {
+  state: boolean
+}
+
+export interface ISeekToPositionRequest extends IDeviceId {
+  position_ms: number
+}
+
+export interface ISetPlaybackVolumeRequest extends IDeviceId {
+  volume_percent: number
 }
 
 export interface ISetRepeatModeRequest {
@@ -50,15 +61,30 @@ const playerApi = api.injectEndpoints({
         }
       },
     }),
-    setRepeatMode: builder.mutation<
-      void,
-      ISetRepeatModeRequest
-      >({
+    seekToPosition: builder.mutation<void, ISeekToPositionRequest>({
+      query: ({ position_ms, device_id }) => {
+        return {
+          url: '/me/player/seek',
+          method: 'PUT',
+          params: { position_ms, device_id },
+        }
+      },
+    }),
+    setRepeatMode: builder.mutation<void, ISetRepeatModeRequest>({
       query: ({ state, device_id }) => ({
         url: '/me/player/repeat',
         method: 'PUT',
         params: { state, device_id },
       }),
+    }),
+    setPlaybackVolume: builder.mutation<void, ISetPlaybackVolumeRequest>({
+      query: ({ volume_percent, device_id }) => {
+        return {
+          url: '/me/player/volume',
+          method: 'PUT',
+          params: { volume_percent, device_id },
+        }
+      },
     }),
     startOrResumePlayback: builder.mutation<
       void,
@@ -88,6 +114,8 @@ const playerApi = api.injectEndpoints({
 
 export const {
   useStartOrResumePlaybackMutation,
+  useSetPlaybackVolumeMutation,
+  useSeekToPositionMutation,
   useSetRepeatModeMutation,
   useTransferPlaybackMutation,
   useTogglePlaybackShuffleMutation,

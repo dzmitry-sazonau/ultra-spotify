@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import styled from 'styled-components'
 import CurrentTrackInfo from './CurrentTrackInfo'
 import PlayerMainControls from './PlayerMainControls'
-import PlayerSlider from './PlayerSlider'
+import PlayerPlaybackBar from './PlayerPlaybackBar'
 import PlayerAdditionalControls from './PlayerAdditionalControls'
 import { PlayerProvider, usePlayerContext } from '../playerContext'
 
@@ -36,7 +36,7 @@ const Player: FC = () => {
 
           <StyledCenterWrapper>
             <PlayerMainControls />
-            <PlayerSlider />
+            <PlayerPlaybackBar />
           </StyledCenterWrapper>
 
           <PlayerAdditionalControls />

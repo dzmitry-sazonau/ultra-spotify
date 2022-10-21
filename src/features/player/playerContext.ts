@@ -1,13 +1,16 @@
 import { useAppSelector } from '../../core/store/hook'
 import { selectAccessToken } from '../auth/selector'
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import constate from 'constate'
 import {
+  useSeekToPositionMutation,
+  useSetPlaybackVolumeMutation,
   useSetRepeatModeMutation,
   useTogglePlaybackShuffleMutation,
   useTransferPlaybackMutation,
 } from './api'
 import { TRepeatModeState } from './entity'
+import { msToMinutesAndSeconds } from '../../core/utils'
 
 function useShuffle(
   playerState: Spotify.PlaybackState | undefined,
@@ -115,7 +118,7 @@ function useRepeatMode(
     return {
       isOffRepeat: true,
       isTrackRepeat: false,
-      setRepeatModeAction: () => {}
+      setRepeatModeAction: () => {},
     }
   }
 
@@ -126,6 +129,80 @@ function useRepeatMode(
   }
 }
 
+const getCurrentPositionInPercent = (position: number, duration: number) =>
+  (100 * position) / duration
+
+function usePosition(
+  position: number,
+  setPosition: React.Dispatch<React.SetStateAction<number>>,
+  playerState: Spotify.PlaybackState | undefined,
+  deviceId: string | undefined
+) {
+  const [seekToPosition] = useSeekToPositionMutation()
+
+  useEffect(() => {
+    if (!playerState?.paused) {
+      const interval = setInterval(() => {
+        setPosition((position) => position + 1000)
+      }, 1000)
+
+      return () => clearInterval(interval)
+    }
+  }, [playerState?.paused])
+
+  return {
+    positionInSec: useMemo(() => msToMinutesAndSeconds(position), [position]),
+    durationInSec: useMemo(
+      () => msToMinutesAndSeconds(playerState?.duration!),
+      [playerState?.duration]
+    ),
+    positionInPer: useMemo(
+      () => getCurrentPositionInPercent(position, playerState?.duration!),
+      [position, playerState?.duration]
+    ),
+    seekToPosition: useCallback(
+      (event: React.MouseEvent<HTMLDivElement>) => {
+        const { left, width } = event.currentTarget.getBoundingClientRect()
+        const positionPercent = (100 * (event.clientX - left)) / width
+
+        seekToPosition({
+          position_ms: Math.round(
+            (positionPercent * playerState?.duration!) / 100
+          ),
+          device_id: deviceId!,
+        })
+      },
+      [playerState, deviceId]
+    ),
+  }
+}
+
+function useVolume(
+  volume: number,
+  setVolume: React.Dispatch<React.SetStateAction<number>>,
+  player: Spotify.Player | undefined
+) {
+  return {
+    volumeInPer: useMemo(() => volume * 100, [volume]),
+    isMuted: useMemo(() => volume === 0, [volume]),
+    setVolume: useCallback(
+      (event: React.MouseEvent<HTMLDivElement>) => {
+        const { left, width } = event.currentTarget.getBoundingClientRect()
+
+        player?.setVolume((event.clientX - left) / width).then(() => {
+          setVolume((event.clientX - left) / width)
+        })
+      },
+      [player, setVolume]
+    ),
+    mute: useCallback(() => {
+      player?.setVolume(volume !== 0 ? 0 : 0.5).then(() => {
+        setVolume(volume !== 0 ? 0 : 0.5)
+      })
+    }, [player, setVolume, volume]),
+  }
+}
+
 function usePlayer() {
   const accessToken = useAppSelector(selectAccessToken)
   const [transferPlayback] = useTransferPlaybackMutation()
@@ -133,6 +210,8 @@ function usePlayer() {
   const [isPaused, setPaused] = useState(false)
   const [isActive, setActive] = useState(false)
   const [player, setPlayer] = useState<Spotify.Player>()
+  const [position, setPosition] = useState(0)
+  const [volume, setVolume] = useState(0)
   const [playerState, setPlayerState] = useState<Spotify.PlaybackState>()
   const [currentTrack, setCurrentTrack] = useState<Spotify.Track | undefined>()
   const [deviceId, setDeviceId] = useState<string | undefined>()
@@ -165,6 +244,10 @@ function usePlayer() {
         console.error('Failed to perform playback', message)
       })
 
+      player.getVolume().then((volume) => {
+        setVolume(volume)
+      })
+
       player.addListener('player_state_changed', (state) => {
         if (!state) {
           setActive(false)
@@ -174,7 +257,7 @@ function usePlayer() {
         setCurrentTrack(state.track_window.current_track)
         setPaused(state.paused)
         setPlayerState(state)
-
+        setPosition(state.position)
 
         player.getCurrentState().then((state) => {
           setActive(!!state)
@@ -188,7 +271,8 @@ function usePlayer() {
     ...useRepeatMode(player, playerState, deviceId),
     ...usePlayPause(currentTrack, player, isPaused),
     ...useNextPrevious(player),
-    player,
+    ...usePosition(position, setPosition, playerState, deviceId),
+    ...useVolume(volume, setVolume, player),
     isActive,
     currentTrack,
     deviceId,
